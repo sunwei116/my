@@ -46,6 +46,10 @@ class LoginController extends Controller
             'email.required' => '年龄不可以为空',
             'password.required' => '密码不可以为空'
         ]);
+       $count = DB::connection('mysql2')->table('user')->where('name',$data['name'])->count();
+       if ($count){
+           echo '用户名已被注册';die();
+       };
         $res = DB::connection('mysql2')->table('user')->insert([
             'name' => $data['name'],
             'email' => $data['email'],

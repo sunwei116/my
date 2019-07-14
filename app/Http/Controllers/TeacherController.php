@@ -24,8 +24,13 @@ class TeacherController extends Controller
     }
     public function addGoods(Request $request)
     {
-        $path = $request->file('goods_pic')->store('goods');
-        echo  asset('storage').'/'.$path;
+        $path = $request->file('goods_pic');
+        if (empty($path)){
+            echo '请选择文件';die;
+        }else{
+            $path->store('goods');
+        }
+        echo  'storage'.'/'.$path;
 
     }
 }

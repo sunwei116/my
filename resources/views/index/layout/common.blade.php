@@ -373,6 +373,8 @@
 <!-- login -->
 @section('register')
     @show()
+@section('index')
+    @show()
 <!-- end login -->
 
 <!-- loader -->
