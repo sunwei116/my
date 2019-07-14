@@ -118,30 +118,22 @@
                     </div>
                 </div>
             </div>--}}
-            @foreach($data as $data)
+            @foreach($data as $v)
             <div class="row margin-bottom">
+                @foreach($v as $v)
                 <div class="col s6">
                     <div class="content">
                         <img src="img/product-new3.png" alt="">
-                        <h6><a href="">{{$data->goods_name}}</a></h6>
+                        <h6><a href="">{{$v->goods_name}}</a></h6>
                         <div class="price">
                             $20 <span>$28</span>
                         </div>
                         <button class="btn button-default">ADD TO CART</button>
                     </div>
                 </div>
-                <div class="col s6">
-                    <div class="content">
-                        <img src="img/product-new4.png" alt="">
-                        <h6><a href="">Fashion Men's</a></h6>
-                        <div class="price">
-                            $20 <span>$28</span>
-                        </div>
-                        <button class="btn button-default">ADD TO CART</button>
-                    </div>
-                </div>
+                @endforeach
             </div>
-                @endforeach()
+                @endforeach
         </div>
     </div>
     <!-- end product -->

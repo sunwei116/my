@@ -10,7 +10,9 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $data = DB::connection('mysql2')->table('goods')->get();
+        $data = DB::connection('mysql2')->table('goods')->get()->toArray();
+        $data=array_chunk($data,2);
+
         return view('index.index.index',['data' => $data]);
 
     }

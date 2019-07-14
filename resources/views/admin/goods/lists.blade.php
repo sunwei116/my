@@ -20,13 +20,13 @@
         <tr>
             <td>{{$goods->goods_name}}</td>
             <td>{{$goods->goods_price}}</td>
-            <td>{{$goods->goods_pic}}</td>
+            <td><img src="{{$goods->goods_pic}}" alt=""></td>
             <td>{{$goods->add_time}}</td>
             <td><a href="{{url('admin/goods/delete')}}?id={{$goods->id}}">删除</a> &ensp;
                 <a href="{{url('admin/goods/edit')}}?id={{$goods->id}}">修改</a></td>
         </tr>
-        @endforeach()
+        @endforeach
         </tbody>
     </table>
-    {{ $goods->links() }}
 @endsection()
+

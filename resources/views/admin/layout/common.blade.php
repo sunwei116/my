@@ -60,7 +60,7 @@
                     <a class="" href="javascript:;">商品管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="{{url('admin/goods/create')}}">商品添加</a></dd>
-                        <dd><a href="{{url('admin/goods/index')}}">商品列表</a></dd>
+                        <dd><a href="{{url('admin/goods/lists')}}">商品列表</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
