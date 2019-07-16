@@ -123,12 +123,12 @@
                 @foreach($v as $v)
                 <div class="col s6">
                     <div class="content">
-                        <img src="img/product-new3.png" alt="">
-                        <h6><a href="">{{$v->goods_name}}</a></h6>
+                        <img src="{{$v->goods_pic}}" alt="" width="200" height="200">
+                        <h6><a href="{{url('/index/goods/lists')}}?id={{$v->id}}">{{$v->goods_name}}</a></h6>
                         <div class="price">
-                            $20 <span>$28</span>
+                            {{$v->goods_price}} <span>$28</span>
                         </div>
-                        <button class="btn button-default">ADD TO CART</button>
+                        <a href="javascript:void (0)" id="{{$v->id}}" class="car" class="btn button-default">ADD TO CART</a>
                     </div>
                 </div>
                 @endforeach
@@ -136,6 +136,24 @@
                 @endforeach
         </div>
     </div>
+    <script>
+
+        $('.car').click(function () {
+            var gid =$(this).attr('id');
+            $.get(
+                "{{url('/index/cart/index')}}",
+                {gid:gid},
+                function (data) {
+                    if (!data){
+                        window.location.href="{{url('index/login')}}";
+                    } else{
+                        alert(data);
+                    }
+                },
+                'json'
+            );
+        })
+    </script>
     <!-- end product -->
 
     <!-- promo -->

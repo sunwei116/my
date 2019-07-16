@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/student/index', 'StudentController@index');
+Route::get('/goods/index', 'goodsController@index');
+Route::get('/goods/create', 'goodsController@create');
+Route::post('/goods/save', 'goodsController@save');
+Route::get('/goods/delete', 'goodsController@delete');
+Route::post('/goods/update', 'goodsController@update');
+Route::group(['middleware' => ['goods']], function () {
+    Route::get('/goods/edit', 'goodsController@edit');
+});
 //Route::get('member/index', 'MemberController@index');
 //Route::any('member/index', ['uses' => 'memberController@index']);
 Route::any('member/index/{id}', [
@@ -41,6 +49,7 @@ Route::any('addGoods', ['uses' => 'TeacherController@addGoods']);
 //    Route::get('/index/login', 'LoginController@login');
 //});
 
+
 //登录
 Route::get('/index/login', 'index\LoginController@login');
 Route::post('/index/doLogin', 'index\LoginController@doLogin');
@@ -49,19 +58,40 @@ Route::get('index/register', 'index\LoginController@register');
 Route::post('index/doRegister', 'index\LoginController@doRegister');
 
 //后台
-Route::get('admin/index/index', 'admin\IndexController@index');
+
+//注册
+Route::get('/admin/login/register', 'admin\LoginController@register');
+Route::post('/admin/login/doRegister', 'admin\LoginController@doRegister');
+//登录
+Route::get('/admin/login/login', 'admin\LoginController@login');
+//首页
+Route::get('/admin/index/index', 'admin\IndexController@index');
 //商品添加
-Route::get('admin/goods/create', 'admin\GoodsController@create');
+Route::get('/admin/goods/create', 'admin\GoodsController@create');
 //图片上传
-Route::any('admin/goods/upload', 'admin\GoodsController@upload');
-Route::post('admin/goods/save', 'admin\GoodsController@save');
+Route::any('/admin/goods/upload', 'admin\GoodsController@upload');
+Route::post('/admin/goods/save', 'admin\GoodsController@save');
 //展示
-Route::get('admin/goods/lists', 'admin\GoodsController@lists');
+Route::get('/admin/goods/lists', 'admin\GoodsController@lists');
 //修改
-Route::get('admin/goods/edit', 'admin\GoodsController@edit');
-Route::post('admin/goods/update', 'admin\GoodsController@update');
+Route::get('/admin/goods/edit', 'admin\GoodsController@edit');
+Route::post('/admin/goods/update', 'admin\GoodsController@update');
 //删除
-Route::get('admin/goods/delete', 'admin\GoodsController@delete');
+Route::get('/admin/goods/delete', 'admin\GoodsController@delete');
 
 //前台
 Route::get('/index/index/index', 'index\IndexController@index');
+//详情
+Route::get('/index/goods/lists', 'index\GoodsController@lists');
+//购物车
+Route::get('/index/cart/index', 'index\CartController@index');
+Route::get('/index/cart/lists', 'index\CartController@lists');
+
+//订单
+Route::get('/index/order/index', 'index\OrderController@index');
+
+//支付同步
+Route::get('/pay', 'payController@do_pay');
+
+Route::get('/return_url', 'payController@retunr_url');
+Route::post('/notify_url', 'payController@notify_url');

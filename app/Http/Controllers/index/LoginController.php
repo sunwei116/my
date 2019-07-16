@@ -21,7 +21,8 @@ class LoginController extends Controller
            if ($data['password'] !=$info->password){
                 echo '密码错误';
            }else{
-               return redirect('index/index');
+               session(['info'=>$info]);
+               return redirect('index/index/index');
            }
        }else{
            echo '账号错误！';

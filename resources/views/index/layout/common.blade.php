@@ -375,6 +375,8 @@
     @show()
 @section('index')
     @show()
+@section('GoodsLists')
+    @show()
 <!-- end login -->
 
 <!-- loader -->

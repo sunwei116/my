@@ -12,7 +12,6 @@ class IndexController extends Controller
     {
         $data = DB::connection('mysql2')->table('goods')->get()->toArray();
         $data=array_chunk($data,2);
-
         return view('index.index.index',['data' => $data]);
 
     }

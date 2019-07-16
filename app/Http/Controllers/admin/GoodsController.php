@@ -7,10 +7,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 class GoodsController extends Controller
 {
-    public function lists()
+    public function lists(Request $request)
     {
-        $goods = DB::connection('mysql2')->table('goods')->paginate(2);
-        return view('admin.goods.lists',['goods' => $goods]);
+        $search = $request->all()['search'];
+        $ss = '';
+        if (empty($request)){
+            $goods = DB::connection('mysql2')->table('goods')->paginate(2);
+        }else{
+            $ss = $search;
+            $goods = DB::connection('mysql2')->table('goods')->where('goods_name','like',"%$search%")->paginate(2);
+        }
+        return view('admin.goods.lists',['goods' => $goods, 'ss'=>$ss]);
     }
 
     public function create()
@@ -77,10 +84,15 @@ class GoodsController extends Controller
 
     }
 
-
-    public function delete()
+    public function delete(Request $request)
     {
-
+        $id = $request->all()['id'];
+        $res = DB::connection('mysql2')->table('goods')->delete($id);
+        if ($res){
+            return redirect('admin/goods/lists');
+        }else{
+            echo '删除失败';
+        }
     }
 
 }
