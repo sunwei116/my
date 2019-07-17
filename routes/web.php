@@ -88,10 +88,10 @@ Route::get('/index/cart/index', 'index\CartController@index');
 Route::get('/index/cart/lists', 'index\CartController@lists');
 
 //订单
-Route::get('/index/order/index', 'index\OrderController@index');
+Route::get('/index/order/confirmOrder', 'index\OrderController@confirmOrder');
+Route::get('/index/order/orderList', 'index\OrderController@orderList');
 
 //支付同步
-Route::get('/pay', 'payController@do_pay');
-
-Route::get('/return_url', 'payController@retunr_url');
+Route::get('/return_url', 'payController@return_url');
 Route::post('/notify_url', 'payController@notify_url');
+Route::get('/pay', 'payController@do_pay');

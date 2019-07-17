@@ -1,6 +1,5 @@
 @extends('index.layout.common')
 @section('login')
-    <form action="">
     <div class="cart section">
         <div class="container">
             <div class="pages-head">
@@ -51,50 +50,6 @@
                     </div>
                 </div>
                 @endforeach
-               {{-- <div class="divider"></div>
-                <div class="cart-2">
-                    <div class="row">
-                        <div class="col s5">
-                            <h5>Image</h5>
-                        </div>
-                        <div class="col s7">
-                            <img src="img/cart2.png" alt="">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s5">
-                            <h5>Name</h5>
-                        </div>
-                        <div class="col s7">
-                            <h5><a href="">Fashion Men's</a></h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s5">
-                            <h5>Quantity</h5>
-                        </div>
-                        <div class="col s7">
-                            <input value="1" type="text">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s5">
-                            <h5>Price</h5>
-                        </div>
-                        <div class="col s7">
-                            <h5>$20</h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s5">
-                            <h5>Action</h5>
-                        </div>
-                        <div class="col s7">
-                            <h5><i class="fa fa-trash"></i></h5>
-                        </div>
-                    </div>
-                </div>
-            </div>--}}
             <div class="total">
                 @foreach($goods as $g)
                 <div class="row">
@@ -115,9 +70,8 @@
                     </div>
                 </div>
             </div>
-            <button class="btn button-default">结算</button>
+            <a class="btn button-default" href="{{url('index/order/confirmOrder')}}?gid={{$gid}}&sum={{$sum}}">结算</a>
         </div>
     </div>
     </div>
-    </form>
 @endsection()

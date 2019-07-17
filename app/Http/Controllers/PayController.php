@@ -22,17 +22,29 @@ class PayController extends Controller
         $this->return_url = env('APP_URL').'/return_url';
     }
 
-    public function do_pay(){
-        $oid = time().mt_rand(1000,1111);  //订单编号
+    public function do_pay(Request $request){
+        $oid = $request->all()['oid'];
+        $price = $request->all()['price'];
+//        $oid = time().mt_rand(1000,1111);  //订单编号
         $order = [
             'out_trade_no' => $oid,
-            'total_amount' => '1',
+            'total_amount' => $price,
             'subject' => 'test subject - 测试',
         ];
 
         return Pay::alipay()->web($order);
     }
-    
+
+    public function return_url()
+    {
+        echo 11;
+    }
+
+    public function notify_url()
+    {
+        $post_json = file_get_contents("php://input");
+        $post = json_encode($post_json);
+    }
     public function rsaSign($params) {
         return $this->sign($this->getSignContent($params));
     }

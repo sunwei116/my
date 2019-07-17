@@ -12,7 +12,10 @@ class CartController extends Controller
     public function index(Request $request)
     {
 //        接受首页加入购物车的gid
-        $gid = $request->all()['gid'];
+        $gid = $request->all()['gid']??'';
+        if (empty($gid)){
+            return redirect('/index/index/index');
+        }
         $user = session('info');
         if (!$user){
            echo json_encode(0);die();
@@ -43,7 +46,7 @@ class CartController extends Controller
            echo json_encode('加入购物车失败');
        }
     }
-
+//购物车列表
     public function lists()
     {
         $user = session('info');
@@ -53,7 +56,9 @@ class CartController extends Controller
         $goods = DB::connection('mysql2')->table('cart')->where('uid',$user->uid)->get();
         $g = $goods->toArray();
        $price = array_column($g,'goods_price');
+       $id = array_column($g,'id');
+       $gid = implode($id,',');
        $sum = array_sum($price);
-        return view('index/cart/lists',['goods' => $goods, 'sum'=>$sum]);
+        return view('index/cart/lists',['goods' => $goods, 'sum'=>$sum,'gid'=>$gid]);
     }
 }
