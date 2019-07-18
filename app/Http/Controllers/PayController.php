@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Pay;
 class PayController extends Controller
 {
@@ -37,7 +38,11 @@ class PayController extends Controller
 
     public function return_url()
     {
-        echo 11;
+        $oid = $_GET['out_trade_no'];
+        //修改订单状态
+        DB::connection('mysql2')->table('order')->where('oid',$oid)->update(['status'=>2]);
+        header("refresh:2;url=/index/order/lists?oid=$oid");
+        echo "订单：".$oid."支付成功！正在跳转";
     }
 
     public function notify_url()

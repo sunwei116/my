@@ -47,7 +47,24 @@ class OrderController extends Controller
         }
         $oid = $request->all()['oid'];
         $price = $request->all()['price'];
-       $data = DB::connection('mysql2')->table('order_detail')->where('oid',$oid)->get()->toArray();
+        $data = DB::connection('mysql2')->table('order_detail')->where('oid',$oid)->get()->toArray();
         return view('/index/order/orderList',['data' =>$data,'price'=>$price,'oid'=>$data[0]->oid]);
+    }
+
+    //订单列表
+    public function lists(Request $request)
+    {
+        if (!session('info')){
+            return redirect('index/login');
+        }
+      $oid = $request->all();
+        $data = DB::connection('mysql2')->table('order')->where('uid',session('info')->uid)->get()->toArray();
+        foreach ($data as $k => $v) {
+           $oo = DB::connection('mysql2')->table('order_detail')->where('oid',$oid)->first();
+            $data[$k]->detail = $oo;
+        }
+//        dd($data);
+//        dd($data[0]->detail->goods_name);
+        return view('index/order/lists',['data'=>$data]);
     }
 }

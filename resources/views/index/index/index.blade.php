@@ -147,7 +147,7 @@
                     if (!data){
                         window.location.href="{{url('index/login')}}";
                     } else{
-                        alert(data);
+                        window.location.href="{{url('index/cart/lists')}}";alert(data);
                     }
                 },
                 'json'
