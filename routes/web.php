@@ -94,7 +94,7 @@ Route::get('/index/order/orderList', 'index\OrderController@orderList');
 Route::get('/index/order/lists', 'index\OrderController@lists');
 
 //支付同步
-Route::get('/return_url', 'payController@return_url');
+Route::get('/return_url', 'PayController@return_url');
 
-Route::post('/notify_url', 'payController@notify_url');
-Route::get('/pay', 'payController@do_pay');
+Route::post('/notify_url', 'PayController@notify_url');
+Route::get('/pay', 'PayController@do_pay');
