@@ -61,7 +61,7 @@ class OrderController extends Controller
 //        dd($oid);
         $data = DB::connection('mysql2')->table('order')->where('uid',session('info')->uid)->get()->toArray();
         foreach ($data as $k => $v) {
-           $oo = DB::connection('mysql2')->table('order_detail')->where('oid',$oid)->get();
+           $oo = DB::connection('mysql2')->table('order_detail')->where('oid',$oid['oid'])->get();
             $data[$k]->detail = $oo;
         }
 //        dd($data);
