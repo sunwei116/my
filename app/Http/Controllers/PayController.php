@@ -49,6 +49,22 @@ class PayController extends Controller
     {
         $post_json = file_get_contents("php://input");
         $post = json_encode($post_json);
+        if($_POST['trade_status']=='TRADE_SUCCESS'){
+           $oid = $_POST['out_trade_no'];
+           $info = [
+                'pay_time'=>2,
+               'pay_status' => 2
+           ];
+           $order_result = DB::connection('mysql2')->table('order')->where(['oid'=>$oid])->update($info);
+           $uid = session('info')->uid;
+           $cart_result = DB::connection('mysql2')->table('cart')->where(['uid'=>$uid])->delete();
+           if ($order_result && $cart_result){
+                file_put_contents(storage_path('/logs/alipay.log'),"订单：".$oid."==>支付成功",FILE_APPEND);
+           }else{
+               file_put_contents(storage_path('/logs/alipay.log'),"订单：".$oid."==>支付失败",FILE_APPEND);
+           }
+        }
+        echo 'success';
     }
     public function rsaSign($params) {
         return $this->sign($this->getSignContent($params));
