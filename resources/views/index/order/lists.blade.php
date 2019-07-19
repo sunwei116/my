@@ -18,12 +18,13 @@
                     <th>商品图片</th>
                     <th>添加时间</th>
                 </tr>
-
+                    @foreach($v->detail as $val)
                     <tr>
-                        <td>{{$v->detail->goods_name}}</td>
-                        <td><img src="{{$v->detail->goods_pic}}" alt="" width="50" height="50"></td>
-                        <td>{{$v->detail->add_time}}</td>
+                        <td>{{$val->goods_name}}</td>
+                        <td><img src="{{$val->goods_pic}}" alt="" width="50" height="50"></td>
+                        <td>{{$val->add_time}}</td>
                     </tr>
+                        @endforeach
             </table>
         </h3>
     @endforeach

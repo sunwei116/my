@@ -58,9 +58,10 @@ class OrderController extends Controller
             return redirect('index/login');
         }
       $oid = $request->all();
+//        dd($oid);
         $data = DB::connection('mysql2')->table('order')->where('uid',session('info')->uid)->get()->toArray();
         foreach ($data as $k => $v) {
-           $oo = DB::connection('mysql2')->table('order_detail')->where('oid',$oid)->first();
+           $oo = DB::connection('mysql2')->table('order_detail')->where('oid',$oid)->get();
             $data[$k]->detail = $oo;
         }
 //        dd($data);

@@ -48,9 +48,10 @@ class PayController extends Controller
     public function notify_url()
     {
         $post_json = file_get_contents("php://input");
+        \Log::Info($post_json);
         $post = json_encode($post_json);
-        if($_POST['trade_status']=='TRADE_SUCCESS'){
-           $oid = $_POST['out_trade_no'];
+        if($post['trade_status']=='TRADE_SUCCESS'){
+           $oid = $post['out_trade_no'];
            $info = [
                 'pay_time'=>2,
                'pay_status' => 2
