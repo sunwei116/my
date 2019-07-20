@@ -39,7 +39,7 @@ Route::post('/student/update', 'StudentController@update');
 Route::get('/student/delete', 'StudentController@delete');
 
 //教师
-//Route::get('/teacher/index', ['uses' => 'TeacherController@index']);
+Route::get('/teacher/index', ['uses' => 'TeacherController@index']);
 
 Route::any('text1', ['uses' => 'TeacherController@text1']);
 Route::any('goods', ['uses' => 'TeacherController@goods']);

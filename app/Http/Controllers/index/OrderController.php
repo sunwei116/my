@@ -64,7 +64,7 @@ class OrderController extends Controller
            $oo = DB::connection('mysql2')->table('order_detail')->where('oid',$oid['oid'])->get();
             $data[$k]->detail = $oo;
         }
-//        dd($data);
+        dd($data);
 //        dd($data[0]->detail->goods_name);
         return view('index/order/lists',['data'=>$data]);
     }
