@@ -8,6 +8,11 @@
     <title>登录</title>
 </head>
 <body>
-<a href="{{url('wechat/login')}}">微信登录</a>
+<form action="{{url('exam/dologin')}}" method="post">
+    @csrf
+    <p> 账号：<input type="text" name="account"> </p>
+    <p> 密码：<input type="password" name="pwd"> </p>
+    <input type="submit" value="登录">
+</form>
 </body>
 </html>

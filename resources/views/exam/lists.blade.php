@@ -5,9 +5,14 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>登录</title>
+    <title>展示</title>
 </head>
 <body>
-<a href="{{url('wechat/login')}}">微信登录</a>
+    <center>
+        <h3>{{$ming}}</h3>
+        @foreach($data as $v)
+            <p>{{$v->title}}</p>
+            @endforeach
+    </center>
 </body>
 </html>

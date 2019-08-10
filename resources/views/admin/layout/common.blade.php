@@ -63,6 +63,24 @@
                         <dd><a href="{{url('admin/goods/lists')}}">商品列表</a></dd>
                     </dl>
                 </li>
+                <li class="layui-nav-item ">
+                    <a class="" href="{{url('wechat/template_list')}}">消息管理</a>
+
+                </li>
+                <li class="layui-nav-item ">
+                    <a class="" href="javascript:;">标签管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{url('wechat/create_tag')}}">标签添加</a></dd>
+                        <dd><a href="{{url('wechat/tag_list')}}">标签列表</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item ">
+                    <a class="" href="javascript:;">素材管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{url('wechat/upload')}}">素材添加</a></dd>
+                        <dd><a href="{{url('wechat/source_list')}}">素材列表</a></dd>
+                    </dl>
+                </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">解决方案</a>
                     <dl class="layui-nav-child">

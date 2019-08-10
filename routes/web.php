@@ -98,3 +98,110 @@ Route::get('/return_url', 'PayController@return_url');
 
 Route::post('/notify_url', 'PayController@notify_url');
 Route::get('/pay', 'PayController@do_pay');
+
+//车票
+Route::get('fare/create', 'FareController@create');
+Route::post('fare/save', 'FareController@save');
+Route::get('fare/lists', 'FareController@lists');
+
+Route::get('identiyt/login', 'identity\IdentityController@login');
+Route::post('identity/dologin', 'identity\IdentityController@doLogin');
+//考试
+Route::get('cart/login', 'Cart\CartController@login');
+Route::post('cart/dologin', 'cart\CartController@doLogin');
+Route::group(['middleware' => ['login']], function () {
+    Route::get('exam/index', 'exam\ExambController@index');
+    Route::post('exam/ti', 'exam\ExambController@ti');
+    Route::any('exam/doti', 'exam\ExambController@doti');
+    Route::get('exam/tianjia', 'exam\ExambController@tianjia');
+    Route::post('exam/shengcheng', 'exam\ExambController@shengcheng');
+    Route::post('exam/save', 'exam\ExambController@save');
+    Route::get('exam/lists', 'exam\ExambController@lists');
+    Route::get('survey/index', 'survey\SurveyController@index');
+
+    //调研
+    Route::get('survey/index', 'survey\SurveyController@index');
+    Route::post('survey/issue', 'survey\SurveyController@issue');
+    Route::post('survey/wenti', 'survey\SurveyController@wenti');
+    Route::post('survey/save', 'survey\SurveyController@save');
+    Route::get('survey/lists', 'survey\SurveyController@lists');
+    Route::post('survey/delete', 'survey\SurveyController@delete');
+    Route::get('survey/check', 'survey\SurveyController@check');
+
+    //车库
+    Route::get('cart/index', 'cart\CartController@index');
+    Route::get('cart/wuye', 'cart\CartController@wuye');
+    Route::get('cart/shujv', 'cart\CartController@shujv');
+    Route::get('cart/menwei', 'cart\CartController@menwei');
+    Route::get('cart/register', 'cart\CartController@register');
+    Route::post('cart/do_register', 'cart\CartController@do_register');
+    Route::get('cart/create', 'cart\CartController@create');
+    Route::get('cart/edit', 'cart\CartController@edit');
+    Route::post('cart/do_edit', 'cart\CartController@do_edit');
+    Route::post('cart/update', 'cart\CartController@update');
+    Route::post('cart/save', 'cart\CartController@save');
+    //身份认证
+
+});
+Route::get('identity/index', 'identity\IdentityController@index');
+Route::post('identity/pp', 'identity\IdentityController@pp');
+
+//竞猜
+Route::get('guess/index', 'guess\GuessController@index');
+Route::post('guess/save', 'guess\GuessController@save');
+Route::get('guess/lists', 'guess\GuessController@lists');
+Route::get('guess/result', 'guess\GuessController@result');
+Route::get('guess/guess', 'guess\GuessController@guess');
+Route::post('guess/do_guess', 'guess\GuessController@do_guess');
+
+//留言
+Route::get('liu/login', 'liu\LiuController@login');
+Route::post('liu/do_login', 'liu\LiuController@do_login');
+Route::get('liu/lists', 'liu\LiuController@lists');
+Route::post('liu/create', 'liu\LiuController@create');
+Route::get('liu/delete', 'liu\LiuController@delete');
+Route::get('liu/sou', 'liu\LiuController@sou');
+
+Route::post('liu/index', 'liu\LiuController@index');
+
+//微信
+Route::get('wechat/get_user_list', 'wechat\WechatController@get_user_list');
+Route::get('wechat/get_user_info', 'wechat\WechatController@get_user_info');
+Route::get('wechat/user_list', 'wechat\WechatController@user_list');
+Route::get('wechat/user_details', 'wechat\WechatController@user_details');
+Route::get('wechat/login', 'wechat\WechatController@login');
+Route::get('wechat/code', 'wechat\WechatController@code');
+Route::get('wechat/template_list', 'wechat\WechatController@template_list');
+//删除模板
+Route::get('wechat/del_template', 'wechat\WechatController@del_template');
+Route::get('wechat/send_template', 'wechat\WechatController@send_template');
+//上传素材
+Route::get('wechat/upload', 'wechat\WechatController@upload');
+Route::post('wechat/do_upload', 'wechat\WechatController@do_upload');
+Route::get('wechat/get_source', 'wechat\WechatController@get_source');
+Route::get('wechat/get_video_source', 'wechat\WechatController@get_video_source');
+Route::get('wechat/get_voice_source', 'wechat\WechatController@get_voice_source');
+//素材列表
+Route::get('wechat/source_list', 'wechat\WechatController@source_list');
+//获取永久素材列表
+Route::get('wechat/upload_source', 'wechat\WechatController@upload_source');
+//创建标签
+Route::get('wechat/create_tag', 'wechat\WechatController@create_tag');
+Route::post('wechat/save_tag', 'wechat\WechatController@save_tag');
+Route::get('wechat/tag_list', 'wechat\WechatController@tag_list');
+Route::get('wechat/del_tag', 'wechat\WechatController@del_tag');
+Route::get('wechat/add_user_tag', 'wechat\WechatController@add_user_tag');
+//标签下粉丝
+Route::get('wechat/tag_fans', 'wechat\WechatController@tag_fans');
+//粉丝下的标签
+Route::get('wechat/get_user_tag', 'wechat\WechatController@get_user_tag');
+Route::get('wechat/del_user_tag', 'wechat\WechatController@del_user_tag');
+//修改标签
+Route::get('wechat/edit_tag', 'wechat\WechatController@edit_tag');
+Route::post('wechat/update_tag', 'wechat\WechatController@update_tag');
+Route::get('wechat/push_tag_message', 'wechat\WechatController@push_tag_message');
+Route::post('wechat/do_push_tag_message', 'wechat\WechatController@do_push_tag_message');
+
+
+
+

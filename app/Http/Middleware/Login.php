@@ -15,9 +15,10 @@ class Login
      */
     public function handle($request, Closure $next)
     {
-
-        $response = $next($request);
-
-        return $response;
+       $user = session('user');
+       if (!$user){
+           return redirect('cart/login');
+       }
+        return $next($request);
     }
 }
