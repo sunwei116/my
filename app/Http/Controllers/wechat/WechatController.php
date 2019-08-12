@@ -434,7 +434,41 @@ class WechatController extends Controller
 
     public function event()
     {
-        echo $_GET['echostr'];
-        die();
+//        echo $_GET['echostr'];
+        $data = file_get_contents("php://input");
+        //解析xml  转化为对象
+        $postObj = simplexml_load_string($data);
+//        dd($postObj->MsgType);
+//        dd(strtolower($postObj->Event));
+//        dd($postObj->CreateTime);
+        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
+        file_put_contents(storage_path('logs/wx_event.log'),$log_str,FILE_APPEND);
+//        $message = '你好';
+//        $postObj->ToUserName = '';
+//        $postObj->FromUserName = '';
+//        $postObj->CreateTime = '';
+//        $postObj->MsgType = '';
+//        $postObj->Event = '';
+        //判断该数据包是否是订阅推送
+        if (strtolower($postObj->MsgType) == 'event') {
+            //如果是关注 subscribe事件
+            if (strtolower($postObj->Event) == 'subscribe') {
+                //回复用户消息
+                $toUser   = $postObj->FromUserName;
+                $fromUser = $postObj->toUserName;
+                $time     = time();
+                $msgType  = 'text';
+                $content  = '欢迎';
+                $template = "<xml>
+                              <ToUserName><![CDATA[%s]]></ToUserName>
+                              <FromUserName><![CDATA[%s]]></FromUserName>
+                              <CreateTime>%s</CreateTime>
+                              <MsgType><![CDATA[%s]]></MsgType>
+                              <Content><![CDATA[%s]]></Content>
+                            </xml>";
+                $info     = sprintf($template,$toUser,$fromUser,$time,$msgType,$content);
+                echo $info;
+            }
+        }
     }
 }
