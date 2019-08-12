@@ -434,7 +434,7 @@ class WechatController extends Controller
 
     public function event()
     {
-//        echo $_GET['echostr'];
+        echo $_GET['echostr'];die;
         $data = file_get_contents("php://input");
         //解析xml  转化为对象
         $postObj = simplexml_load_string($data);
