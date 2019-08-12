@@ -96,7 +96,7 @@ class WechatController extends Controller
         if (!empty($user_openid)) {
             $user_info = DB::connection('mysql4')->table('user')->where(['id'=>$user_openid->uid])->first();
             $request->session()->put('username',$user_info->name);
-            header('Location:www.shop.com/admin/index/index');
+
         }else{
             //没有数据 注册信息
             DB::connection("mysql4")->beginTransaction();
@@ -113,7 +113,6 @@ class WechatController extends Controller
             //登陆操作
             $user_info = DB::connection('mysql4')->table('user')->where(['id' => $uid])->first();
             $request->session()->put('username',$user_info->name);
-            header('Location:www.shop.com/admin/index/index');
         }
     }
     
@@ -431,5 +430,11 @@ class WechatController extends Controller
         $message= $this->request->all()['message'];
         $res = $this->wechat->do_push_tag_message($push_type,$tag_id,$message,$media_id);
         dd($res);
+    }
+
+    public function event()
+    {
+        echo $_GET['echostr'];
+        die();
     }
 }

@@ -201,6 +201,7 @@ Route::get('wechat/edit_tag', 'wechat\WechatController@edit_tag');
 Route::post('wechat/update_tag', 'wechat\WechatController@update_tag');
 Route::get('wechat/push_tag_message', 'wechat\WechatController@push_tag_message');
 Route::post('wechat/do_push_tag_message', 'wechat\WechatController@do_push_tag_message');
+Route::get('wechat/event', 'wechat\WechatController@event');
 
 
 
