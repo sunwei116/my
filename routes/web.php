@@ -202,6 +202,9 @@ Route::post('wechat/update_tag', 'wechat\WechatController@update_tag');
 Route::get('wechat/push_tag_message', 'wechat\WechatController@push_tag_message');
 Route::post('wechat/do_push_tag_message', 'wechat\WechatController@do_push_tag_message');
 Route::post('wechat/event', 'wechat\WechatController@event');
+//二维码
+Route::get('wechat/getTimeQrCode', 'wechat\WechatController@getTimeQrCode');
+Route::get('wechat/agentUserList', 'wechat\WechatController@agentUserList');
 
 
 

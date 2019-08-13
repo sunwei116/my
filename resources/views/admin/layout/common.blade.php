@@ -68,6 +68,10 @@
 
                 </li>
                 <li class="layui-nav-item ">
+                    <a class="" href="{{url('wechat/agentUserList')}}">二维码</a>
+
+                </li>
+                <li class="layui-nav-item ">
                     <a class="" href="javascript:;">标签管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="{{url('wechat/create_tag')}}">标签添加</a></dd>

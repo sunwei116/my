@@ -452,7 +452,19 @@ class WechatController extends Controller
         //判断该数据包是否是订阅推送
         if (strtolower($postObj->MsgType) == 'event') {
             //如果是关注 subscribe事件
+//            dd(strtolower($postObj->FromUserName));
             if (strtolower($postObj->Event) == 'subscribe') {
+                if (isset($postObj->EventKey)){
+                    $agent_code = explode('_',$postObj->EventKey)[1];
+                    $agent_info = DB::connection('mysql4')->table('user_agent')->where(['uid'=>$agent_code,'openid'=>strtolower($postObj->FromUserName)])->first();
+                    if (empty($agent_info)) {
+                        DB::connection('mysql4')->table('user_agent')->insert([
+                            'uid' => $agent_code,
+                            'openid' => strtolower($postObj->FromUserName),
+                            'add_time' => time()
+                        ]);
+                    }
+                }
                 //回复用户消息
                 $toUser   = $postObj->FromUserName;
                 $fromUser = $postObj->ToUserName;
@@ -468,7 +480,53 @@ class WechatController extends Controller
                             </xml>";
                 $info     = sprintf($template,$toUser,$fromUser,$time,$msgType,$content);
                 echo $info;
+
             }
         }
     }
-}
+//获取临时二维码
+    public function getTimeQrCode()
+    {
+        $uid = $this->request->all()['uid'];
+        //获取ticket
+        $access_token  = $this->wechat->get_access_token();
+        $url = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=".$access_token;
+        //{"expire_seconds": 604800, "action_name": "QR_SCENE", "action_info": {"scene": {"scene_id": 123}}}
+        $postArr = [
+            'expire_seconds' => 604800,
+            'action_name'    => "QR_SCENE",
+            'action_info'    => [
+                'scene'      => [ 'scene_id' => $uid]
+            ]
+        ];
+        $postJson = json_encode($postArr);
+        $res = $this->wechat->post($url,$postJson);
+        $res = json_decode($res,1);
+        $ticket = $res['ticket'];
+        //获取二维码  图片
+        $url = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=".urlencode($ticket);
+        $client   = new client();
+        $response = $client->get($url);
+        $res      = $response->getHeaders();
+        //取出后缀名
+        $ext   = explode('/',$res['Content-Type'][0])[1];
+        $fileName = time().mt_rand(1000,9999).'.'.$ext;
+        $path     = 'qrcode/'.$fileName;
+        storage::disk('local')->put($path,$response->getBody());
+        //拼接路径
+        $qrcode_url = '/storage/'.$path;
+        DB::connection('mysql4')->table('user')->where('id',$uid)->update([
+           'agent_code' => $uid,
+           'qrcode_url' =>$qrcode_url
+        ]);
+        return redirect('wechat/agentUserList');
+
+
+    }
+
+    public function agentUserList()
+    {
+        $user = DB::connection('mysql4')->table('user')->get()->toArray();
+        return view('admin.wechat.agentUserList',['user'=>$user]);
+    }
+} //class end
