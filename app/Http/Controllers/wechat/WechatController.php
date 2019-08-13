@@ -438,7 +438,7 @@ class WechatController extends Controller
         $data = file_get_contents("php://input");
         //解析xml  转化为对象
         $postObj = simplexml_load_string($data);
-//        dd($postObj->MsgType);
+//        dd($data);
 //        dd(strtolower($postObj->Event));
 //        dd($postObj->CreateTime);
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
