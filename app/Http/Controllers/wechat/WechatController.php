@@ -454,7 +454,7 @@ class WechatController extends Controller
             //如果是关注 subscribe事件
 //            dd(strtolower($postObj->FromUserName));
             if (strtolower($postObj->Event) == 'subscribe') {
-                if (isset(strtolower($postObj->EventKey))){
+                if (isset($postObj->EventKey)){
                     \Log::info(1111);
                     $agent_code = explode('_',$postObj->EventKey)[1];
                     $agent_info = DB::connection('mysql4')->table('user_agent')->where(['uid'=>$agent_code,'openid'=>strtolower($postObj->FromUserName)])->first();
