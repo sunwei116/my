@@ -20,6 +20,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        'notify_url','liu/index','wechat/event'
+        'notify_url','liu/index','wechat/event','dobiaobai'
     ];
 }
