@@ -88,7 +88,10 @@ class TestController extends Controller
            //没有code没有授权
        $host = $_SERVER['HTTP_HOST'];
        $uri  = $_SERVER['REQUEST_URI'];
+       var_dump($uri);
+       var_dump($host);
        $redirect_uri = urlencode('http://'.$host.$uri);
+       var_dump($redirect_uri);die();
        $url  = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".env('WECHAT_APPID')."&redirect_uri=".$redirect_uri."&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
        header("location:".$url);die();
        }else{
