@@ -21,7 +21,7 @@ class TestController extends Controller
                 [
                     "type"=>"view",
                     'name'=>"我要表白",
-                    'url'=>"http://www.wei678.com/biaobai"
+                    'url'=>"http://www.wei678.top/biaobai"
                 ],
                 [
                     'type'=>'click',
