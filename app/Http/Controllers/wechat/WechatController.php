@@ -518,7 +518,7 @@ class WechatController extends Controller
         $qrcode_url = '/storage/'.$path;
         DB::connection('mysql4')->table('user')->where('id',$uid)->update([
            'agent_code' => $uid,
-           'qrcode_url' =>$qrcode_url
+           'qrcode_url' => $qrcode_url
         ]);
         return redirect('wechat/agentUserList');
 
@@ -530,4 +530,229 @@ class WechatController extends Controller
         $user = DB::connection('mysql4')->table('user')->get()->toArray();
         return view('admin.wechat.agentUserList',['user'=>$user]);
     }
+
+    public function definedMenu()
+    {
+        $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".$this->wechat->get_access_token();
+        $postArr = [
+            'button'=>[
+                    [
+                        'name'=>'菜单一',
+                        'type'=>'click',
+                        'key'=>'item1'
+                     ],//第一个一级菜单
+                    [
+                        'name'=>'菜单二',
+                        'sub_button'=>[
+                            [
+                                'name'=>'音乐',
+                                'type'=>'click',
+                                'key'=>'music'
+                            ], // 第二个二级菜单
+                            [
+                                'name'=>'电影',
+                                'type'=>'view',
+                                'url'=>'http://www.iqiyi.com/',
+                            ], // 第二个二级菜单
+
+                        ],
+                    ],//第二个一级菜单
+                    [
+                        'name'=>'菜单三',
+                        'type'=>'view',
+                        'url'=>'http://www.qq.com',
+                    ],//第三个一级菜单
+                ]
+        ];
+//        dd($postArr);
+        $postJson = json_encode($postArr,JSON_UNESCAPED_UNICODE);
+       $res = $this->wechat->post($url,$postJson);
+       dd($res);
+    }
+
+    public function getCateInfo($data,$pid=0,$lev=0)
+    {
+        static $info = [];
+        foreach ($data as $k => $v){
+            if ($v->pid==$pid){
+                $v->lev=$lev;
+                $info[]=$v;
+               $this->getCateInfo($data,$v->id,$lev+1);
+            }
+        }
+        return $info;
+    }
+
+    public function menuCreate()
+    {
+        $res = DB::connection('mysql4')->table('menu2')->where('pid',0)->get()->toArray();
+        return view('admin.wechat.menuCreate',['res'=>$res]);
+    }
+
+    public function menuSave()
+    {
+        $data = $this->request->all();
+        $m_key ='';
+        $m_url ='';
+        if($data['m_type'] == 'click'){
+            $m_key = $data['select'];
+        }else{
+            $m_url = $data['select'];
+        }
+//        dd($data);
+        $res = DB::connection('mysql4')->table('menu2')->insert([
+            'm_name' => $data['m_name'],
+            'm_type' => $data['m_type'],
+            'pid'    => $data['pid'],
+            'm_key'  => $m_key,
+            'm_url'  => $m_url
+        ]);
+//        dd($res);
+       $res = $this->reload_menu();
+        dd($res);
+    }
+    //刷新菜单
+    public function reload_menu()
+    {
+
+        /*$sub_button = [];
+        foreach ($parent as $v){
+             foreach ($dd as $val){
+                 if ($val->pid == $v->id){
+                     echo 11,"<br>";
+//                     $name = DB::connection('mysql4')->table('menu2')->select(['m_name'])->where('id', $val->pid)->first();
+                     if ($val->m_type == 'view'){
+                         $sub_button[]=[
+                             'name' => $val->m_name,
+                             'type' => $val->m_type,
+                             'url'  => $val->m_url,
+                         ];
+                     }else{
+                         $sub_button[]=[
+                             'name' => $v->m_name,
+                             'type' => $v->m_type,
+                             'key'  => $v->m_key,
+                         ];
+                     }
+                 }
+             }
+        }*/
+//        dd($data);
+//        dd($sub_button);
+        $parent = DB::connection('mysql4')->table('menu2')->where('pid',0)->orderBy('id','desc')->limit(3)->get()->toArray();
+//        $dd = DB::connection('mysql4')->table('menu2')->get()->toArray();
+        $sub_button = [];
+        foreach ($parent as $val) {
+//            dd($val);
+            $menu_info = DB::connection('mysql4')->table('menu2')->where('pid', $val->id)->get()->toArray();
+            if ($val->m_type == 'view'){
+                $data['button'][] = [
+                    'name' => $val->m_name,
+                    'type' => $val->m_type,
+                    'url' => $val->m_url,
+                ];
+            }else{
+                $data['button'][] = [
+                    'name' => $val->m_name,
+                    'type' => $val->m_type,
+                    'key' => $val->m_key,
+                ];
+            }
+            foreach ($menu_info as $k => $v) {
+               $name = DB::connection('mysql4')->table('menu2')->select(['m_name'])->where('id', $v->pid)->first();
+                if ($v->m_type == 'view'){
+                    $sub_button[] = [
+                        'name' => $v->m_name,
+                        'type' => $v->m_type,
+                        'url' => $v->m_url,
+                    ];
+
+                }else{
+                    $name = DB::connection('mysql4')->table('menu2')->select(['m_name'])->where('id', $v->pid)->first();
+                    $sub_button[] = [
+                        'name' => $v->m_name,
+                        'type' => $v->m_type,
+                        'key'  => $v->m_key,
+                    ];
+                }
+            }
+            }
+        if (!empty($sub_button)){
+            $data['button'][]=['name'=>$name->m_name,'sub_button'=>$sub_button];
+        }
+//         dd($data);
+        $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->wechat->get_access_token();
+        $postJson = json_encode($data,JSON_UNESCAPED_UNICODE);
+        $res = $this->wechat->post($url,$postJson);
+        return $res;
+//        $menu_info = DB::connection('mysql4')->table('menu')->get();
+//        $data = $this->getCateInfo($menu_info);
+//        dd($data);
+        /*foreach ($menu_info as $val){
+            $menu_list = DB::connection('mysql4')->table('menu')->where('m_name',$val->m_name)->get()->toArray();
+            foreach ($menu_list as $v) {
+                if ($v->pid == 0) { //一级菜单
+//                    echo 1;die;
+                    if ($v->m_type == 'view'){
+                        $data['button'][] = [
+                          'type'=>$v->m_type,
+                          'name'=>$v->m_name,
+                          'url'=>$v->m_url
+                        ];
+                    }else{
+                        $data['button'][]=[
+                            'type'=>$v->m_type,
+                            'name'=>$v->m_name,
+                            'key'=>$v->m_key
+                        ];
+                    }
+                }else{ //二级菜单
+                    $m_name = DB::connection('mysql4')->table('menu')->select('m_name')->where('id',$v->pid)->first();
+                    if ($v->m_type == 'view') {
+                       $sub_button = [
+                           [
+                             'name'=>$m_name->m_name,
+                            'sub_button' => [
+                                [
+                                    'type'=>$v->m_type,
+                                    'name'=>$v->m_name,
+                                    'url'=>$v->m_url
+                                ],
+
+                            ]
+                               ]
+                        ];
+                    }elseif($v->m_type=='media_id'){
+
+                    }else{
+                        $m_name = DB::connection('mysql4')->table('menu')->select('m_name')->where('id',$v->pid)->first();
+                        $sub_button = [
+                            [
+                            'name'=>$m_name->m_name,
+                            'sub_button'=>[
+                                [
+                                    'type'=>$v->m_type,
+                                    'name'=>$v->m_name,
+                                    'key'=>$v->m_key
+                                ],
+
+                            ]
+                        ]
+                        ];
+                    }
+                }
+            }*/
+            /*if (!empty($sub_button)) {
+                $data['button']=$sub_button;
+            }
+            dd($data);
+            $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->wechat->get_access_token();
+            $postJson = json_encode($data,JSON_UNESCAPED_UNICODE);
+            $res = $this->wechat->post($url,$postJson);
+            return $res;*/
+//        }
+    }
+
+
+
 } //class end

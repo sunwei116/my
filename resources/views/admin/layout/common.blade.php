@@ -79,6 +79,13 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item ">
+                    <a class="" href="javascript:;">菜单管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{url('wechat/menuCreate')}}">菜单添加</a></dd>
+                        <dd><a href="{{url('wechat/menuList')}}">菜单列表</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item ">
                     <a class="" href="javascript:;">素材管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="{{url('wechat/upload')}}">素材添加</a></dd>

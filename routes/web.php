@@ -205,6 +205,26 @@ Route::post('wechat/event', 'wechat\WechatController@event');
 //二维码
 Route::get('wechat/getTimeQrCode', 'wechat\WechatController@getTimeQrCode');
 Route::get('wechat/agentUserList', 'wechat\WechatController@agentUserList');
+//自定义菜单
+Route::get('wechat/definedMenu', 'wechat\WechatController@definedMenu');
+Route::get('wechat/menuCreate', 'wechat\WechatController@menuCreate');
+Route::get('wechat/menuSave', 'wechat\WechatController@menuSave');
+Route::get('wechat/reload_menu', 'wechat\WechatController@reload_menu');
+
+
+Route::get('menu/menu_list', 'MenuController@menu_list');
+Route::post('menu/do_add_menu', 'MenuController@do_add_menu');
+Route::get('menu/reload_menu', 'MenuController@reload_menu');
+/////////
+ Route::get('we/index', 'wechat\WeController@index');
+Route::get('we/login', 'wechat\WeController@login');
+Route::get('we/getUserOpenId', 'wechat\WeController@getUserOpenId');
+Route::get('we/userList', 'wechat\WeController@userList');
+
+//表白
+Route::get('wechatMenu','TestController@wechatMenu');
+Route::get('biaobai','TestController@biaobai');
+Route::get('dobiaobai','TestController@dobiaobai');
 
 
 
