@@ -75,7 +75,71 @@ class TestController extends Controller
     {
         $access_token =$this->wechat->get_access_token();
        $data = request()->post();
-       dd($data);
+       $res = DB::connection('mysql4')->table('biaobai')->insert($data);
+       if ($res){
+           if (!empty($data['status'])){
+               $data['userName'] = '匿名用户';
+           }
+            $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={$access_token}";
+           $postJson = [
+               'touser' => $data['openid'],
+               'template_id' => '0EN58O4NDGaNWff_5_d_ErDn7jhSKB8tgrn9TIoRvXU',
+               'url' => '',
+               'miniprogram' => '',
+               'data' => [
+                   'first' => [
+                       'value' => '有人对你表白',
+                       'color' => '#173177',
+                   ],
+                   'userName' =>[
+                       'value' => $data['userName'],
+                       'color' =>'#ff1127',
+                   ],
+                   'content' =>[
+                       'value' => $data['content'],
+                       'color' => '#ff1127'
+                   ],
+
+               ],
+           ];
+           $postData = json_encode($postJson,JSON_UNESCAPED_UNICODE);
+           $res      = $this->wechat->post($url,$postData);
+           $res = json_decode($res,1);
+           if ($res['errmsg'] == 'ok'){
+                echo "<script>alert('表白成功，信息发送成功');history.back(-1)</script>";
+           }else{
+               echo "<script>alert('表白失败，信息好像没有发送成功');history.back(-1)</script>";
+           }
+       }else{
+           echo "<script>alert('表白失败');history.back(-1)</script>";
+       }
+    }
+
+    public function wode()
+    {
+        $xml = file_get_contents("php://input");
+        file_put_contents('kaoshi.txt',$xml);
+        $xmlObj = simplexml_load_string($xml);
+        if ($xmlObj->MsgType = 'event' && $xmlObj->Event == 'ClICK'){
+            $data = DB::connection('mysql4')->table('biaobai')->where('openid',$xmlObj->FromUserName)->get()->toArray();
+            $msg = '';
+            foreach ($data as $k => $v){
+                if ($data->status == 2){
+                    $data->userName = "匿名用户";
+                }
+                $msg .='收到'.$data->userName.'的表白：'.$data->content."\n";
+            }
+            echo "
+            <xml>
+              <ToUserName><![CDATA[".$xmlObj->FromUserName."]]></ToUserName>
+              <FromUserName><![CDATA[".$xmlObj->ToUserName."]]></FromUserName>
+              <CreateTime>".time()."</CreateTime>
+              <MsgType><![CDATA[text]]></MsgType>
+              <Content><![CDATA[".$msg."]]></Content>
+            </xml>
+            ";
+        }
+
     }
     public function getUserInfo()
     {
