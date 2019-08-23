@@ -440,8 +440,8 @@ class WechatController extends Controller
         $postObj = simplexml_load_string($data);
 //        dd(strtolower($postObj->Event));
 //        dd($postObj->CreateTime);
-        $ii = date('Y-m-d H:i:s')."\n".$postObj->Event.'|'.strtolower($postObj->Event)."\n<<<<<";
-        \Log::info($ii);
+//        $ii = date('Y-m-d H:i:s')."\n".$postObj->Event.'|'.strtolower($postObj->Event)."\n<<<<<";
+//        \Log::info($ii);
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents(storage_path('logs/wx_event.log'),$log_str,FILE_APPEND);
 //        var_dump($postObj->Event);die;
@@ -485,6 +485,30 @@ class WechatController extends Controller
                 echo $info;
 
             }
+        }elseif($postObj->Event == 'CLICK'){
+            //回复用户消息
+           $data = DB::connection('mysql4')->table('biaobai')->where('openid',$postObj->FromUserName)->get();
+           $msg = '';
+           foreach ($data as $k => $v){
+               if ($v['status'] == 2){
+                   $v['userName'] = '匿名用户';
+               }
+               $msg .='收到'.$v['userName'].'的表白'.$v['content']."\n";
+           }
+            $toUser   = $postObj->FromUserName;
+            $fromUser = $postObj->ToUserName;
+            $time     = time();
+            $msgType  = 'text';
+            $content  = $msg;
+            $template = "<xml>
+                              <ToUserName><![CDATA[%s]]></ToUserName>
+                              <FromUserName><![CDATA[%s]]></FromUserName>
+                              <CreateTime>%s</CreateTime>
+                              <MsgType><![CDATA[%s]]></MsgType>
+                              <Content><![CDATA[%s]]></Content>
+                            </xml>";
+            $info     = sprintf($template,$toUser,$fromUser,$time,$msgType,$content);
+            echo $info;
         }
     }
 //获取临时二维码
