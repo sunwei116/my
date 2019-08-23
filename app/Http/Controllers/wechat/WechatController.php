@@ -442,8 +442,8 @@ class WechatController extends Controller
 //        dd(strtolower($postObj->Event));
 //        dd($postObj->CreateTime);
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-        var_dump($postObj->Event);die;
         file_put_contents(storage_path('logs/wx_event.log'),$log_str,FILE_APPEND);
+        var_dump($postObj->Event);die;
 //        $message = '你好';
 //        $postObj->ToUserName = '';
 //        $postObj->FromUserName = '';
