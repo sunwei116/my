@@ -120,6 +120,7 @@ class TestController extends Controller
         $xml = file_get_contents("php://input");
         file_put_contents('kaoshi.txt',$xml);
         $xmlObj = simplexml_load_string($xml);
+        dd($xmlObj);
         if ($xmlObj->MsgType = 'event' && $xmlObj->Event == 'ClICK'){
             $data = DB::connection('mysql4')->table('biaobai')->where('openid',$xmlObj->FromUserName)->get()->toArray();
             $msg = '';

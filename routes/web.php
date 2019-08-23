@@ -225,6 +225,7 @@ Route::get('we/userList', 'wechat\WeController@userList');
 Route::get('wechatMenu','TestController@wechatMenu');
 Route::get('biaobai','TestController@biaobai');
 Route::post('dobiaobai','TestController@dobiaobai');
+Route::post('wode','TestController@wode');
 
 
 
