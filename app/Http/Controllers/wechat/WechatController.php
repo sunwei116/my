@@ -490,8 +490,8 @@ class WechatController extends Controller
                 $data = DB::connection('mysql4')->table('biaobai')->where('openid',$postObj->FromUserName)->get();
                 $msg = '';
                 foreach ($data as $k => $v){
-                    if ($v['status'] == 2){
-                        $v['userName'] = '匿名用户';
+                    if ($v->status == 2){
+                        $v->userName = '匿名用户';
                     }
                     $msg .='收到'.$v->userName.'的表白'.$v->content."\n";
                 }
