@@ -438,12 +438,13 @@ class WechatController extends Controller
         $data = file_get_contents("php://input");
         //解析xml  转化为对象
         $postObj = simplexml_load_string($data);
-       var_dump($data);
 //        dd(strtolower($postObj->Event));
 //        dd($postObj->CreateTime);
+        $ii = date('Y-m-d H:i:s')."\n".$postObj->Event.'|'.strtolower($postObj->Event)."\n<<<<<";
+        \Log::info($ii);
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents(storage_path('logs/wx_event.log'),$log_str,FILE_APPEND);
-        var_dump($postObj->Event);die;
+//        var_dump($postObj->Event);die;
 //        $message = '你好';
 //        $postObj->ToUserName = '';
 //        $postObj->FromUserName = '';
