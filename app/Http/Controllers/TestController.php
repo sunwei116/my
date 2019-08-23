@@ -33,7 +33,6 @@ class TestController extends Controller
         $post = json_encode($arr,JSON_UNESCAPED_UNICODE);
         $res = $this->wechat->post($url,$post);
         dd($res);
-
     }
 
     public function biaobai()
