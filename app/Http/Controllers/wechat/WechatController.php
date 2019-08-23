@@ -495,6 +495,7 @@ class WechatController extends Controller
                     }
                     $msg .='收到'.$v->userName.'的表白'.$v->content."\n";
                 }
+                \Log::info($msg);
                 $toUser   = $postObj->FromUserName;
                 $fromUser = $postObj->ToUserName;
                 $time     = time();
@@ -508,7 +509,7 @@ class WechatController extends Controller
                               <Content><![CDATA[%s]]></Content>
                             </xml>";
                 $info     = sprintf($template,$toUser,$fromUser,$time,$msgType,$content);
-                \Log::info($msg.'<<<<'.$info);
+                \Log::info('1232'.$msg.'<<<<'.$info);
                 echo $info;
             }
         }
