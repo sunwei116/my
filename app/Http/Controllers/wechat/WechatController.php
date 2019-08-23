@@ -508,6 +508,7 @@ class WechatController extends Controller
                               <Content><![CDATA[%s]]></Content>
                             </xml>";
                 $info     = sprintf($template,$toUser,$fromUser,$time,$msgType,$content);
+                \Log::info($msg.'<<<<'.$info);
                 echo $info;
             }
         }
