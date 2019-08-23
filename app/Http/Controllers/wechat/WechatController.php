@@ -487,6 +487,7 @@ class WechatController extends Controller
             }
         }elseif($postObj->Event == 'CLICK'){
             //回复用户消息
+            \Log::info(121);
            $data = DB::connection('mysql4')->table('biaobai')->where('openid',$postObj->FromUserName)->get();
            $msg = '';
            foreach ($data as $k => $v){
