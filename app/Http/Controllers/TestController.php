@@ -122,12 +122,13 @@ class TestController extends Controller
         dd($xmlObj);
         if ($xmlObj->MsgType = 'event' && $xmlObj->Event == 'ClICK'){
             $data = DB::connection('mysql4')->table('biaobai')->where('openid',$xmlObj->FromUserName)->get()->toArray();
+//            \Log::info($data);
             $msg = '';
             foreach ($data as $k => $v){
                 if ($data->status == 2){
                     $data->userName = "匿名用户";
                 }
-                $msg .='收到'.$data->userName.'的表白：'.$data->content."\n";
+                $msg .="收到".$data->userName."的表白：".$data->content."\n";
             }
             echo "
             <xml>
