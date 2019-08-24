@@ -125,10 +125,10 @@ class TestController extends Controller
 //            \Log::info($data);
             $msg = '';
             foreach ($data as $k => $v){
-                if ($data->status == 2){
-                    $data->userName = "匿名用户";
+                if ($v->status == 2){
+                    $v->userName = "匿名用户";
                 }
-                $msg .="收到".$data->userName."的表白：".$data->content."\n";
+                $msg .="收到".$v->userName."的表白：".$v->content."\n";
             }
             echo "
             <xml>

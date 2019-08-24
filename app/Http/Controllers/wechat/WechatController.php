@@ -488,15 +488,15 @@ class WechatController extends Controller
                 //回复用户消息
                 \Log::info(1111);
                 $data = DB::connection('mysql4')->table('biaobai')->where('openid',$postObj->FromUserName)->get();
-                $msg = '';
+                $msg = '123';
                 \Log::info($data);
-                foreach ($data as $k => $v){
-                    if ($v->status == 2){
-                        $v->userName = '匿名用户';
-                    }
-                    $msg .='收到'.$v->userName.'的表白'.$v->content."\n";
-                }
-                \Log::info($msg);
+//                foreach ($data as $k => $v){
+//                    if ($v->status == 2){
+//                        $v->userName = '匿名用户';
+//                    }
+//                    $msg .='收到'.$v->userName.'的表白'.$v->content."\n";
+//                }
+//                \Log::info($msg);
                 $toUser   = $postObj->FromUserName;
                 $fromUser = $postObj->ToUserName;
                 $time     = time();
