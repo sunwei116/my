@@ -497,7 +497,7 @@ class WechatController extends Controller
                         if ($v->status == 2){
                             $v->userName = '匿名用户';
                         }
-                        $msg .='收到'.$v->userName.'的表白'.$v->content."\n";
+                        $msg .='收到'.$v->userName.'的表白：'."\n".$v->content."\n";
                     }
                 }
 
