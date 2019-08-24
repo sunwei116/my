@@ -487,16 +487,21 @@ class WechatController extends Controller
             }elseif($postObj->Event == 'CLICK'){
                 //回复用户消息
                 \Log::info(1111);
-                $data = DB::connection('mysql4')->table('biaobai')->where('openid',$postObj->FromUserName)->get();
-                $msg = '123';
-                \Log::info($data);
-//                foreach ($data as $k => $v){
-//                    if ($v->status == 2){
-//                        $v->userName = '匿名用户';
-//                    }
-//                    $msg .='收到'.$v->userName.'的表白'.$v->content."\n";
-//                }
-//                \Log::info($msg);
+                $data = DB::connection('mysql4')->table('biaobai')->where('userOpenid',$postObj->FromUserName)->get();
+                $msg = '';
+//                \Log::info($data);
+                if (emput($data)){
+                    $msg = "赞无你的表白";
+                }else{
+                    foreach ($data as $k => $v){
+                        if ($v->status == 2){
+                            $v->userName = '匿名用户';
+                        }
+                        $msg .='收到'.$v->userName.'的表白'.$v->content."\n";
+                    }
+                }
+
+                \Log::info($msg);
                 $toUser   = $postObj->FromUserName;
                 $fromUser = $postObj->ToUserName;
                 $time     = time();
