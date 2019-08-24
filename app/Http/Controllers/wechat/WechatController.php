@@ -490,7 +490,7 @@ class WechatController extends Controller
                 $data = DB::connection('mysql4')->table('biaobai')->where('userOpenid',$postObj->FromUserName)->get();
                 $msg = '';
 //                \Log::info($data);
-                if (emput($data)){
+                if (empty($data)){
                     $msg = "赞无你的表白";
                 }else{
                     foreach ($data as $k => $v){
