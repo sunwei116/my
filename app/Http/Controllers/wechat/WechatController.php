@@ -456,7 +456,7 @@ class WechatController extends Controller
             //如果是关注 subscribe事件
 //            dd(strtolower($postObj->FromUserName));
             if (strtolower($postObj->Event) == 'subscribe') {
-//                if (isset($postObj->EventKey)){
+//                if (empty($postObj->EventKey)){
 //                    \Log::info(1111);
 //                    \Log::info($postObj->EventKey);
 //                    $agent_code = explode('_',$postObj->EventKey)[1];
@@ -519,6 +519,9 @@ class WechatController extends Controller
                 $info     = sprintf($template,$toUser,$fromUser,$time,$msgType,$content);
                 \Log::info('1232'.$msg.'<<<<'.$info);
                 echo $info;
+            }elseif ($postObj->MsgType == 'text'){
+                $preg = preg_match(".*?油价",$postObj->Content);
+                \Log::Info($preg);
             }
         }
     }
