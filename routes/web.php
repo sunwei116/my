@@ -226,7 +226,7 @@ Route::get('wechatMenu','TestController@wechatMenu');
 Route::get('biaobai','TestController@biaobai');
 Route::post('dobiaobai','TestController@dobiaobai');
 Route::post('wode','TestController@wode');
-Route::get('index','ApiController@index');
+Route::get('api/index','ApiController@index');
 
 
 

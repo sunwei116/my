@@ -524,6 +524,8 @@ class WechatController extends Controller
                 $preg = preg_match("/.*?油价/",$postObj->Content);
             if ($preg){
                 $city = substr($postObj->Content,0,-6);
+                $priceInfo = file_get_contents("http://www.wei678.top/api/index");
+                dd($priceInfo);
             }
         }
     }
