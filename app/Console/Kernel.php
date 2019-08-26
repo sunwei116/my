@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->call(function () {
-            \Log::Info(1234567);
+            \Log::info(1234567);
         })->everyMinute();
     }
 
