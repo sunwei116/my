@@ -527,7 +527,20 @@ class WechatController extends Controller
                 $priceInfo = file_get_contents("http://www.wei678.top/api/index");
                 $priceInfo = json_decode($priceInfo,1);
                 $arr =[];
-                dd($priceInfo);
+                foreach ($priceInfo['result'] as $key => $value){
+                    $arr[] = $value['city'];
+                }
+                if (!in_array($arr,$city)){
+                    $message = "赞无该城市油价";
+                    echo "<xml>
+                              <ToUserName><![CDATA[".$postObj->FromUserName."]]></ToUserName>
+                              <FromUserName><![CDATA[".$postObj->ToUserName."]]></FromUserName>
+                              <CreateTime>".time()."</CreateTime>
+                              <MsgType><![CDATA[text]]></MsgType>
+                              <Content><![CDATA[".$message."]]></Content>
+                              <MsgId>".$postObj->MsgId."</MsgId>
+                          </xml>";
+                }
             }
         }
     }
