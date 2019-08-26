@@ -525,6 +525,8 @@ class WechatController extends Controller
             if ($preg){
                 $city = substr($postObj->Content,0,-6);
                 $priceInfo = file_get_contents("http://www.wei678.top/api/index");
+                $priceInfo = json_decode($priceInfo,1);
+                $arr =[];
                 dd($priceInfo);
             }
         }
