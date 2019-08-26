@@ -519,10 +519,10 @@ class WechatController extends Controller
                 $info     = sprintf($template,$toUser,$fromUser,$time,$msgType,$content);
                 \Log::info('1232'.$msg.'<<<<'.$info);
                 echo $info;
-            }elseif ($postObj->MsgType == 'text'){
-//                $preg = preg_match(".*?油价",$postObj->Content);
-                \Log::Info(11111);
             }
+        }elseif ($postObj->MsgType == 'text'){
+                $preg = preg_match(".*?油价",$postObj->Content);
+            \Log::Info($preg);
         }
     }
 //获取临时二维码
