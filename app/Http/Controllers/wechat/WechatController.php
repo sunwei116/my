@@ -522,7 +522,9 @@ class WechatController extends Controller
             }
         }elseif ($postObj->MsgType == 'text'){
                 $preg = preg_match("/.*?油价/",$postObj->Content);
-            \Log::Info($preg);
+            if ($preg){
+                $city = substr($postObj->Content,0,-6);
+            }
         }
     }
 //获取临时二维码
