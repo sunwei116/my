@@ -456,19 +456,19 @@ class WechatController extends Controller
             //如果是关注 subscribe事件
 //            dd(strtolower($postObj->FromUserName));
             if (strtolower($postObj->Event) == 'subscribe') {
-                if (isset($postObj->EventKey)){
-                    \Log::info(1111);
-                    \Log::info($postObj->EventKey);
-                    $agent_code = explode('_',$postObj->EventKey)[1];
-                    $agent_info = DB::connection('mysql4')->table('user_agent')->where(['uid'=>$agent_code,'openid'=>$postObj->FromUserName])->first();
-                    if (empty($agent_info)) {
-                        DB::connection('mysql4')->table('user_agent')->insert([
-                            'uid' => $agent_code,
-                            'openid' => strtolower($postObj->FromUserName),
-                            'add_time' => time()
-                        ]);
-                    }
-                }
+//                if (isset($postObj->EventKey)){
+//                    \Log::info(1111);
+//                    \Log::info($postObj->EventKey);
+//                    $agent_code = explode('_',$postObj->EventKey)[1];
+//                    $agent_info = DB::connection('mysql4')->table('user_agent')->where(['uid'=>$agent_code,'openid'=>$postObj->FromUserName])->first();
+//                    if (empty($agent_info)) {
+//                        DB::connection('mysql4')->table('user_agent')->insert([
+//                            'uid' => $agent_code,
+//                            'openid' => strtolower($postObj->FromUserName),
+//                            'add_time' => time()
+//                        ]);
+//                    }
+//                }
                 //回复用户消息
                 $toUser   = $postObj->FromUserName;
                 $fromUser = $postObj->ToUserName;
