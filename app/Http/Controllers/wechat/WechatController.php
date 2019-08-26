@@ -521,7 +521,7 @@ class WechatController extends Controller
                 echo $info;
             }
         }elseif ($postObj->MsgType == 'text'){
-                $preg = preg_match(".*?油价",$postObj->Content);
+                $preg = preg_match("/.*?油价",$postObj->Content);
             \Log::Info($preg);
         }
     }
