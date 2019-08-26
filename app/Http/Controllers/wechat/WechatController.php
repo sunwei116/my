@@ -530,15 +530,14 @@ class WechatController extends Controller
                 foreach ($priceInfo['result'] as $key => $value){
                     $arr[] = $value['city'];
                 }
-                if (!in_array($arr,$city)){
+                if (!in_array($city,$arr)){
                     $message = "赞无该城市油价";
                     echo "<xml>
                               <ToUserName><![CDATA[".$postObj->FromUserName."]]></ToUserName>
-                              <FromUserName><![CDATA[".$postObj->ToUserName."]]></FromUserName>
+                              <FromUserName><![CDATA[".$postObj->ToUsreName."]]></FromUserName>
                               <CreateTime>".time()."</CreateTime>
                               <MsgType><![CDATA[text]]></MsgType>
                               <Content><![CDATA[".$message."]]></Content>
-                              <MsgId>".$postObj->MsgId."</MsgId>
                           </xml>";
                 }
             }
