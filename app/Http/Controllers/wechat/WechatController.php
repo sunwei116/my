@@ -474,7 +474,7 @@ class WechatController extends Controller
                 $fromUser = $postObj->ToUserName;
                 $time     = time();
                 $msgType  = 'text';
-                $content  = '欢迎';
+                $content  = '欢迎使用本公司提供的油价查询功能';
                 $template = "<xml>
                               <ToUserName><![CDATA[%s]]></ToUserName>
                               <FromUserName><![CDATA[%s]]></FromUserName>
