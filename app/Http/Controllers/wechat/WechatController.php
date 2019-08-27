@@ -539,6 +539,24 @@ class WechatController extends Controller
                               <MsgType><![CDATA[text]]></MsgType>
                               <Content><![CDATA[".$message."]]></Content>
                           </xml>";
+                    die();
+                }
+                foreach ($priceInfo['result'] as $key => $value){
+                    if ($city == $value['city']){
+                        $redis = new \Redis();
+                        $redis->connect('127.0.0.1','6379');
+                        $redis->incr($city);
+                        $findNun = $redis->get($city);
+                        if ($findNun > 10){
+                           if ($redis->exists($city.'信息')){
+                               $cityInfo = $redis->get($city.'信息');
+                               $value = json_decode($cityInfo,1);
+                           }else{
+                               $redis->set($city.'信息',$value);
+                           }
+                        }
+                        echo $city."目前油价"."\n";
+                    }
                 }
             }
         }
