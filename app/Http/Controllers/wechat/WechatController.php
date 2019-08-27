@@ -555,7 +555,14 @@ class WechatController extends Controller
                                $redis->set($city.'信息',$value);
                            }
                         }
-                        echo $city."目前油价"."\n";
+                        $message = $city."目前油价"."\n".'92h'.$value['92h']."95h".$value['95h']."98h".$value['98h'].'0h'.$value['0h'];
+                        echo "<xml>
+                              <ToUserName><![CDATA[".$postObj->FromUserName."]]></ToUserName>
+                              <FromUserName><![CDATA[".$postObj->ToUsreName."]]></FromUserName>
+                              <CreateTime>".time()."</CreateTime>
+                              <MsgType><![CDATA[text]]></MsgType>
+                              <Content><![CDATA[".$message."]]></Content>
+                          </xml>";
                     }
                 }
             }
