@@ -35,6 +35,13 @@ class TestController extends Controller
         dd($res);
     }
 
+    public function aa()
+    {
+        $data = file_get_contents("http://www.wei678.top/api/index");
+        $data = json_decode($data, 1);
+        dd($data);
+    }
+
     public function biaobai()
     {
        $access = $this->wechat->get_access_token();

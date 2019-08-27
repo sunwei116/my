@@ -226,6 +226,8 @@ Route::get('wechatMenu','TestController@wechatMenu');
 Route::get('biaobai','TestController@biaobai');
 Route::post('dobiaobai','TestController@dobiaobai');
 Route::post('wode','TestController@wode');
+Roure::get('aa','Testcontroller@aa');
+//石油
 Route::get('api/index','ApiController@index');
 
 
