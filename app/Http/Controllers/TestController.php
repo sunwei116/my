@@ -37,9 +37,16 @@ class TestController extends Controller
 
     public function aa()
     {
+        $redis = new \Redis();
+        $redis->connect('127.0.0.1','6379');
         $data = file_get_contents("http://www.wei678.top/api/index");
         $data = json_decode($data, 1);
-        dd($data);
+        foreach ($data['result'] as $key => $value){
+                if ($redis->exists($value['city'].'信息')){
+                    $redisInfo = json_decode($value['city'].'信息',1);
+                    dd($redisInfo);
+                }
+        }
     }
 
     public function biaobai()

@@ -552,7 +552,7 @@ class WechatController extends Controller
                                $cityInfo = $redis->get($city.'信息');
                                $value = json_decode($cityInfo,1);
                            }else{
-                               $redis->set($city.'信息',$value);
+                               $redis->set($city.'信息',json_encode($value));
                            }
                         }
                         $message = $city."目前油价"."\n".'92h：'.$value['92h']."\n"."95h：".$value['95h']."\n"."98h：".$value['98h']."\n".'0h：'.$value['0h'];
