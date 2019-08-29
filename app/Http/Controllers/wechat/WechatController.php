@@ -489,9 +489,9 @@ class WechatController extends Controller
                 $info     = sprintf($template,$toUser,$fromUser,$time,$msgType,$content);
                 \Log::info($info);
                 echo $info;
-                $qian = DB::connection('mysql4')->table('jifen')->insert([
-                    'openid' => $toUser,
-                ]);
+//                $qian = DB::connection('mysql4')->table('jifen')->insert([
+//                    'openid' => $toUser,
+//                ]);
 
             }elseif($postObj->Event == 'CLICK' && $postObj->EventKey == 'love'){
                 //回复用户消息
@@ -537,7 +537,7 @@ class WechatController extends Controller
                     ]);
                     DB::connection('mysql4')->table('jifen')->insert([
                         'score' => 5,
-                        'uid' => $uid
+                        'openid' => $postObj->FromUserName
                     ]);
                     $msg = '签到成功';
                     $msgType = 'text';
@@ -562,6 +562,26 @@ class WechatController extends Controller
                               <MsgType><![CDATA[".$msgType."]]></MsgType>
                               <Content><![CDATA[".$msg."]]></Content>
                             </xml>";
+                    }elseif (($data->cishuo) > 5 || ($data->addtime) > ($data->addtime + 172800)){
+                        DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
+                            'addtime' => time(),
+                            'cishuo' =>1,
+                            'qian' =>1
+                        ]);
+                        $jf = DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->first();
+                        DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
+                            'score' => ($jf->score)+5,
+                        ]);
+                    }else{
+                        $jf = DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->first();
+                        DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
+                            'addtime' => time(),
+                            'cishuo' =>($data->cishuo)+1,
+                            'qian' =>1
+                        ]);
+                        DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
+                            'score' => ($jf->score) * 5,
+                        ]);
                     }
                 }
             }
