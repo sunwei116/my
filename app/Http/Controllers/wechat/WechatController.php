@@ -493,7 +493,7 @@ class WechatController extends Controller
                     'openid' => $toUser,
                 ]);
 
-            }elseif($postObj->Event == 'CLICK'){
+            }elseif($postObj->Event == 'CLICK' && $postObj->EventKey == 'love'){
                 //回复用户消息
                 \Log::info($postObj);
                 $data = DB::connection('mysql4')->table('biaobai')->where('userOpenid',$postObj->FromUserName)->get();
@@ -526,6 +526,8 @@ class WechatController extends Controller
                 $info     = sprintf($template,$toUser,$fromUser,$time,$msgType,$content);
                 \Log::info('1232'.$msg.'<<<<'.$info);
                 echo $info;
+            }elseif ($postObj->Event == 'CLICK' && $postObj->EventKey == 'qian'){
+                \Log::info(123);
             }
         }elseif ($postObj->MsgType == 'text'){
                 $preg = preg_match("/.*?油价/",$postObj->Content);
