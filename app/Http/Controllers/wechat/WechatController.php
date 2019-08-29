@@ -471,13 +471,14 @@ class WechatController extends Controller
 //                }
                 $token = $this->wechat->get_access_token();
                 $info = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$token}&openid={$postObj->FromUserName}&lang=zh_CN");
+                $info = json_decode($info,1);
                 \Log::info($info);
                 //回复用户消息
                 $toUser   = $postObj->FromUserName;
                 $fromUser = $postObj->ToUserName;
                 $time     = time();
                 $msgType  = 'text';
-                $content  = '欢迎'."1".'同学，感谢关注';
+                $content  = '欢迎'.$info['nickname'].'同学，感谢关注';
                 $template = "<xml>
                               <ToUserName><![CDATA[%s]]></ToUserName>
                               <FromUserName><![CDATA[%s]]></FromUserName>
