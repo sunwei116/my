@@ -568,12 +568,12 @@ class WechatController extends Controller
                             'cishuo' =>1,
                             'qian' =>1
                         ]);
-                        $jf = DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->first();
+                        $jf = DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->first();
                         DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
                             'score' => ($jf->score)+5,
                         ]);
                     }else{
-                        $jf = DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->first();
+                        $jf = DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->first();
                         DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
                             'addtime' => time(),
                             'cishuo' =>($data->cishuo)+1,
@@ -585,7 +585,7 @@ class WechatController extends Controller
                     }
                 }
             }elseif ($postObj->Event == 'CLICK' && $postObj->EventKey == 'score'){
-                $jf = DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->first();
+                $jf = DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->first();
                 $msg = '您的剩余积分'.$jf->score;
                 $msgType = 'text';
                 echo "<xml>
