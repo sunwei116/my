@@ -229,7 +229,8 @@ Route::post('wode','TestController@wode');
 Route::get('aa','TestController@aa');
 //石油
 Route::get('api/index','ApiController@index');
-
+//积分签到
+Route::get('testb/menu','TestbController@menu');
 
 
 

@@ -489,10 +489,13 @@ class WechatController extends Controller
                 $info     = sprintf($template,$toUser,$fromUser,$time,$msgType,$content);
                 \Log::info($info);
                 echo $info;
+                $qian = DB::connection('mysql4')->table('jifen')->insert([
+                    'openid' => $toUser,
+                ]);
 
             }elseif($postObj->Event == 'CLICK'){
                 //回复用户消息
-                \Log::info(1111);
+                \Log::info($postObj);
                 $data = DB::connection('mysql4')->table('biaobai')->where('userOpenid',$postObj->FromUserName)->get();
                 $msg = '';
 //                \Log::info($data);
