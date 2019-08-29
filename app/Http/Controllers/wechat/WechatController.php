@@ -584,6 +584,17 @@ class WechatController extends Controller
                         ]);
                     }
                 }
+            }elseif ($postObj->Event == 'CLICK' && $postObj->EventKey == 'score'){
+                $jf = DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->first();
+                $msg = '您的剩余积分'.$jf->score;
+                $msgType = 'text';
+                echo "<xml>
+                              <ToUserName><![CDATA[".$postObj->FromUserName."]]></ToUserName>
+                              <FromUserName><![CDATA[".$postObj->ToUserName."]]></FromUserName>
+                              <CreateTime>".time()."</CreateTime>
+                              <MsgType><![CDATA[".$msgType."]]></MsgType>
+                              <Content><![CDATA[".$msg."]]></Content>
+                            </xml>";
             }
         }elseif ($postObj->MsgType == 'text'){
                 $preg = preg_match("/.*?油价/",$postObj->Content);
