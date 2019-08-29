@@ -532,7 +532,7 @@ class WechatController extends Controller
                    $uid = DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->insertGetId([
                         'openid' => $postObj->FromUserName,
                         'addtime' => time(),
-                        'cishu' =>1,
+                        'cishuo' =>1,
                         'qian' =>1
                     ]);
                     DB::connection('mysql4')->table('jifen')->insert([
