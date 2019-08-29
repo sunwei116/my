@@ -527,7 +527,30 @@ class WechatController extends Controller
                 \Log::info('1232'.$msg.'<<<<'.$info);
                 echo $info;
             }elseif ($postObj->Event == 'CLICK' && $postObj->EventKey == 'qian'){
-                \Log::info(123);
+                $data = DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->first();
+                if (empty($data)){
+                   $uid = DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->insertGetId([
+                        'openid' => $postObj->FromUserName,
+                        'addtime' => time(),
+                        'cishu' =>1,
+                        'qian' =>1
+                    ]);
+                    DB::connection('mysql4')->table('jifen')->insert([
+                        'score' => 5,
+                        'uid' => $uid
+                    ]);
+                }else{
+                    //如果不到一天
+                    if (($data->addtime) < 86400){
+                        echo "<xml>
+                              <ToUserName><![CDATA[".$postObj->FromUserName."]]></ToUserName>
+                              <FromUserName><![CDATA[".$postObj->ToUserName."]]></FromUserName>
+                              <CreateTime>".time()."</CreateTime>
+                              <MsgType><![CDATA[text]]></MsgType>
+                              <Content><![CDATA[今日已签到]]></Content>
+                            </xml>";
+                    }
+                }
             }
         }elseif ($postObj->MsgType == 'text'){
                 $preg = preg_match("/.*?油价/",$postObj->Content);
