@@ -469,7 +469,8 @@ class WechatController extends Controller
 //                        ]);
 //                    }
 //                }
-                $info = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid={$postObj->FromUserName}&lang=zh_CN");
+                $token = $this->wechat->get_access_token();
+                $info = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token={$token}&openid={$postObj->FromUserName}&lang=zh_CN");
                 \Log::info($info);
                 //回复用户消息
                 $toUser   = $postObj->FromUserName;
