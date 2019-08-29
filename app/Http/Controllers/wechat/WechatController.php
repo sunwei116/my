@@ -539,15 +539,28 @@ class WechatController extends Controller
                         'score' => 5,
                         'uid' => $uid
                     ]);
+                    $msg = '签到成功';
+                    $msgType = 'text';
+                    \Log::info('12221');
+                    echo "<xml>
+                              <ToUserName><![CDATA[".$postObj->FromUserName."]]></ToUserName>
+                              <FromUserName><![CDATA[".$postObj->ToUserName."]]></FromUserName>
+                              <CreateTime>".time()."</CreateTime>
+                              <MsgType><![CDATA[".$msgType."]]></MsgType>
+                              <Content><![CDATA[".$msg."]]></Content>
+                            </xml>";
                 }else{
+                    \Log::info('12222');
                     //如果不到一天
-                    if (($data->addtime) < 86400){
+                    $msg = '今日已签到';
+                    $msgType = 'text';
+                    if (($data->addtime) < ($data->addtime + 86400)){
                         echo "<xml>
                               <ToUserName><![CDATA[".$postObj->FromUserName."]]></ToUserName>
                               <FromUserName><![CDATA[".$postObj->ToUserName."]]></FromUserName>
                               <CreateTime>".time()."</CreateTime>
-                              <MsgType><![CDATA[text]]></MsgType>
-                              <Content><![CDATA[今日已签到]]></Content>
+                              <MsgType><![CDATA[".$msgType."]]></MsgType>
+                              <Content><![CDATA[".$msg."]]></Content>
                             </xml>";
                     }
                 }
