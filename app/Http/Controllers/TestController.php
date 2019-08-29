@@ -41,7 +41,6 @@ class TestController extends Controller
         $redis->connect('127.0.0.1','6379');
         $data = file_get_contents("http://www.wei678.top/api/index");
         $data = json_decode($data, 1);
-        echo $redis->get('北京');
         foreach ($data['result'] as $key => $value){
                 if ($redis->exists($value['city'].'信息')){
                     $redisInfo = json_decode($value['city'].'信息',1);

@@ -469,12 +469,14 @@ class WechatController extends Controller
 //                        ]);
 //                    }
 //                }
+                $info = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid={$postObj->FromUserName}&lang=zh_CN");
+                \Log::info($info);
                 //回复用户消息
                 $toUser   = $postObj->FromUserName;
                 $fromUser = $postObj->ToUserName;
                 $time     = time();
                 $msgType  = 'text';
-                $content  = '欢迎使用本公司提供的油价查询功能';
+                $content  = '欢迎'."1".'同学，感谢关注';
                 $template = "<xml>
                               <ToUserName><![CDATA[%s]]></ToUserName>
                               <FromUserName><![CDATA[%s]]></FromUserName>
