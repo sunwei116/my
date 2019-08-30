@@ -590,8 +590,9 @@ class WechatController extends Controller
                             'cishuo' =>($data->cishuo)+1,
                             'qian' =>1
                         ]);
-                        DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
-                            'score' => $jf->score+ ($jf->score * 5),
+                        DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->update([
+                            'score' => $jf->score + ($jf->score * 5),
+                            'sign_time' => time()
                         ]);
                     }
                 }
