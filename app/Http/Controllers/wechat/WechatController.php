@@ -557,7 +557,8 @@ class WechatController extends Controller
                     $time0 = date('Y-m-d');//当前时间凌晨
                     $time0 = strtotime($time0);
                     $msgType = 'text';
-                    if (($data->addtime) > $time0){
+                    if ($data->addtime > $time0){
+                        \Log::info('今日已签到'.'凌晨：'.$time0.'上次'.$data->addtime);
                         echo "<xml>
                               <ToUserName><![CDATA[".$postObj->FromUserName."]]></ToUserName>
                               <FromUserName><![CDATA[".$postObj->ToUserName."]]></FromUserName>
@@ -590,7 +591,7 @@ class WechatController extends Controller
                             'qian' =>1
                         ]);
                         DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
-                            'score' => $jf+ ($jf->score * 5),
+                            'score' => $jf->score+ ($jf->score * 5),
                         ]);
                     }
                 }
