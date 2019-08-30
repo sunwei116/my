@@ -489,7 +489,7 @@ class WechatController extends Controller
                 $info     = sprintf($template,$toUser,$fromUser,$time,$msgType,$content);
                 \Log::info($info);
                 echo $info;
-//                $qian = DB::connection('mysql4')->table('jifen')->insert([
+//                DB::connection('mysql4')->table('xinxi')->insert([
 //                    'openid' => $toUser,
 //                ]);
 
@@ -537,7 +537,8 @@ class WechatController extends Controller
                     ]);
                     DB::connection('mysql4')->table('jifen')->insert([
                         'score' => 5,
-                        'openid' => $postObj->FromUserName
+                        'openid' => $postObj->FromUserName,
+                        'sign_time' => time()
                     ]);
                     $msg = '签到成功';
                     $msgType = 'text';
@@ -553,8 +554,10 @@ class WechatController extends Controller
                     \Log::info('12222');
                     //如果不到一天
                     $msg = '今日已签到';
+                    $time0 = date('Y-m-d');//当前时间凌晨
+                    $time0 = strtotime($time0);
                     $msgType = 'text';
-                    if (($data->addtime) < ($data->addtime + 86400)){
+                    if (($data->addtime) > $time0){
                         echo "<xml>
                               <ToUserName><![CDATA[".$postObj->FromUserName."]]></ToUserName>
                               <FromUserName><![CDATA[".$postObj->ToUserName."]]></FromUserName>
@@ -562,16 +565,25 @@ class WechatController extends Controller
                               <MsgType><![CDATA[".$msgType."]]></MsgType>
                               <Content><![CDATA[".$msg."]]></Content>
                             </xml>";
-                    }elseif (($data->cishuo) > 5 || ($data->addtime) > ($data->addtime + 172800)){
+                        //判断次数是否大于5次  或者  签到时间是否小于昨天凌晨 小于昨天凌晨就是超过2天 签到重新开始
+                    }elseif (($data->cishuo) > 5 || ($data->addtime < $time0-86400)){
                         DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
                             'addtime' => time(),
                             'cishuo' =>1,
                             'qian' =>1
                         ]);
-                        $jf = DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->first();
-                        DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
-                            'score' => ($jf->score)+5,
-                        ]);
+                        $jf = DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->orderBy('id','desc')->first();
+                        DB::table('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->insert(
+                            [
+                                'sign_time' => time(),
+                                'openid' => $postObj->FromUserName,
+                                'score'  => ($jf->score)+5
+                            ]
+                        );
+//                        $jf = DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->first();
+//                        DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
+//                            'score' => ($jf->score)+5,
+//                        ]);
                     }else{
                         $jf = DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->first();
                         DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
@@ -580,12 +592,12 @@ class WechatController extends Controller
                             'qian' =>1
                         ]);
                         DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
-                            'score' => ($jf->score) * 5,
+                            'score' => $jf+ ($jf->score * 5),
                         ]);
                     }
                 }
             }elseif ($postObj->Event == 'CLICK' && $postObj->EventKey == 'score'){
-                $jf = DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->first();
+                $jf = DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->orderBy('id','desc')->first();
                 $msg = '您的剩余积分'.$jf->score;
                 $msgType = 'text';
                 echo "<xml>

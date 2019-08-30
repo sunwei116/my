@@ -232,5 +232,14 @@ Route::get('api/index','ApiController@index');
 //积分签到
 Route::get('testb/menu','TestbController@menu');
 
+Route::get('denglu','FuxiController@denglu');
+Route::post('do_denglu','FuxiController@do_denglu');
+Route::get('create','FuxiController@create');
+Route::post('save','FuxiController@save');
+Route::get('lists','FuxiController@lists');
+Route::get('delete','FuxiController@delete');
+Route::get('edit','FuxiController@edit');
+
+
 
 
