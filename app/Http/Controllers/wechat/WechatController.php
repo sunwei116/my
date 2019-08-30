@@ -573,13 +573,11 @@ class WechatController extends Controller
                             'qian' =>1
                         ]);
                         $jf = DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->orderBy('id','desc')->first();
-                        DB::table('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->insert(
-                            [
+                        DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->insert([
                                 'sign_time' => time(),
                                 'openid' => $postObj->FromUserName,
                                 'score'  => ($jf->score)+5
-                            ]
-                        );
+                            ]);
 //                        $jf = DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->first();
 //                        DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
 //                            'score' => ($jf->score)+5,
