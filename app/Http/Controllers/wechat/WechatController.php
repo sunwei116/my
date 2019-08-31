@@ -568,6 +568,7 @@ class WechatController extends Controller
                             </xml>";
                         //判断次数是否大于5次  或者  签到时间是否小于昨天凌晨 小于昨天凌晨就是超过2天 签到重新开始
                     }elseif (($data->cishuo) > 5 || ($data->addtime < $time0-86400)){
+                        \Log::info('大于5次的超过2天的');
                         DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
                             'addtime' => time(),
                             'cishuo' =>1,
@@ -584,6 +585,7 @@ class WechatController extends Controller
 //                            'score' => ($jf->score)+5,
 //                        ]);
                     }else{
+                        \Log::info('连续签到的');
                         $jf = DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->first();
                         DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
                             'addtime' => time(),
