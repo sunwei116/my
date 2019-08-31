@@ -580,6 +580,15 @@ class WechatController extends Controller
                                 'openid' => $postObj->FromUserName,
                                 'score'  => ($jf->score)+5
                             ]);
+                        $msg = '签到成功';
+                        $msgType='text';
+                        echo "<xml>
+                              <ToUserName><![CDATA[".$postObj->FromUserName."]]></ToUserName>
+                              <FromUserName><![CDATA[".$postObj->ToUserName."]]></FromUserName>
+                              <CreateTime>".time()."</CreateTime>
+                              <MsgType><![CDATA[".$msgType."]]></MsgType>
+                              <Content><![CDATA[".$msg."]]></Content>
+                            </xml>";
 //                        $jf = DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->first();
 //                        DB::connection('mysql4')->table('qian')->where('openid',$postObj->FromUserName)->update([
 //                            'score' => ($jf->score)+5,
@@ -592,10 +601,19 @@ class WechatController extends Controller
                             'cishuo' =>($data->cishuo)+1,
                             'qian' =>1
                         ]);
-                        DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->update([
-                            'score' => $jf->score + ($jf->score * 5),
+                        DB::connection('mysql4')->table('jifen')->where('openid',$postObj->FromUserName)->insert([
+                            'score' => $jf->score + ($data->cishu * 5),
                             'sign_time' => time()
                         ]);
+                        $msg = '连续签到成功';
+                        $msgType='text';
+                        echo "<xml>
+                              <ToUserName><![CDATA[".$postObj->FromUserName."]]></ToUserName>
+                              <FromUserName><![CDATA[".$postObj->ToUserName."]]></FromUserName>
+                              <CreateTime>".time()."</CreateTime>
+                              <MsgType><![CDATA[".$msgType."]]></MsgType>
+                              <Content><![CDATA[".$msg."]]></Content>
+                            </xml>";
                     }
                 }
             }elseif ($postObj->Event == 'CLICK' && $postObj->EventKey == 'score'){
