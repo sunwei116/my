@@ -8,6 +8,10 @@
     <title>列表</title>
 </head>
 <body>
+<form action="{{url('lists')}}" method="get">
+    姓名 <input type="text" name="search" id="" value="{{$search}}">
+    <input type="submit" name="" id="" value="搜索">
+</form>
     <table border="`">
         <tr>
             <th>姓名</th>
@@ -29,5 +33,6 @@
             </tr>
         @endforeach
     </table>
+{{ $student->appends(['search' => $search])->links() }}
 </body>
 </html>

@@ -240,6 +240,8 @@ Route::get('lists','FuxiController@lists');
 Route::get('delete','FuxiController@delete');
 Route::get('edit','FuxiController@edit');
 
+Route::get('a1','wechat\WechatController@a1');
 
-
-
+///////////////////////////////////////////////
+/// 接口
+Route::any('api/info', 'Api\MemberController@info');

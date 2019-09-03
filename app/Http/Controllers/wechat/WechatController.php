@@ -943,7 +943,30 @@ class WechatController extends Controller
             return $res;*/
 //        }
     }
-
-
+public function a1()
+{
+    $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".env('WECHAT_APPID')."&secret=".env('WECHAT_APPSECRET');
+   $res = $this->curlPost($url,);
+   dd($res);
+}
+ public function curlPost($url)
+ {
+    //1初始化
+     $ch = curl_init();
+     //2设置访问地址
+     curl_setopt($ch, CURLOPT_URL, $url);
+     //3返回格式
+     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+     //发送一个post请求
+     curl_setopt($ch, CURLOPT_POST, 1);
+     //post提交的数据包
+     curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+     //请求网站是https要加  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false)
+     //执行
+     $content = curl_exec($ch);
+     //关闭
+     curl_close($ch);
+     return $content;
+ }
 
 } //class end

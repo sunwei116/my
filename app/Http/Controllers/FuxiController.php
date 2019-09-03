@@ -38,9 +38,14 @@ class FuxiController extends Controller
         }
     }
 
-    public function lists()
+    public function lists(Request $request)
     {
-        $data = DB::connection('fuxi')->table('student')->get();
+        $name = $request->all();
+        if (empty($search)){
+            $data = DB::connection('fuxi')->table('student')->paginate(2);
+        }else{
+            $data = DB::connection('fuxi')->table('student')->where('name','like',"%$name%")->paginate(2);
+        }
         return view('fuxi.lists',['data'=>$data]);
     }
 
