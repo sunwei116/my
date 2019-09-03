@@ -24,7 +24,7 @@ class MemberController extends Controller
         if (empty($age) || empty($name)){
             return json_encode(['code'=>201,'msg'=>'参数不能为空']);
         }
-     $res = Member::table('user')->insert([
+     $res = Member::insert([
             'name' => $name,
             'age' => $age
         ]);
