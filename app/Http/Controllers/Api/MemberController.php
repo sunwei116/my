@@ -20,7 +20,18 @@ class MemberController extends Controller
     {
         $name = request()->get('name');
         $age = request()->get('age');
-        echo $name,$age;
 
+        if (empty($age) || empty($name)){
+            return json_encode(['code'=>201,'msg'=>'参数不能为空']);
+        }
+     $res = Member::table('user')->insert([
+            'name' => $name,
+            'age' => $age
+        ]);
+        if ($res) {
+            return json_encode(['code'=>200,'msg'=>'添加成功']);
+        }else{
+            return json_encode(['code'=>202,'msg'=>'添加失败']);
+        }
     }
 }
