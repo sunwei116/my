@@ -244,4 +244,8 @@ Route::get('a1','wechat\WechatController@a1');
 
 ///////////////////////////////////////////////
 /// 接口
-Route::any('api/info', 'Api\MemberController@info');
+Route::any('api/lists', 'Api\MemberController@lists');
+Route::any('api/add', function (){
+    return view('fuxi.add');
+});
+Route::any('api/create', 'Api\MemberController@create');

@@ -9,15 +9,18 @@ use App\Model\Member;
 class MemberController extends Controller
 {
     //查询数据库
-    public function info()
+    public function lists()
     {
         $data = Member::get()->toArray();
         return json_encode($data,JSON_UNESCAPED_UNICODE);
 
     }
 
-    public function show()
+    public function create()
     {
-        
+        $name = request()->get('name');
+        $age = request()->get('age');
+        echo $name,$age;
+
     }
 }
