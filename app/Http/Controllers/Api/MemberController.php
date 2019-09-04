@@ -62,5 +62,7 @@ class MemberController extends Controller
         if (empty($id)){
             return json_encode(['code'=>201,'msg'=>'id不能为空']);
         }
+        $res = Member::where('id',$id)->first();
+        return json_encode($res);
     }
 }
