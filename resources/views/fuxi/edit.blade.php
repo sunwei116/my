@@ -41,24 +41,24 @@
         }
         return(false);
     }
-    // $('.button').on('click',function () {
-    //     var name = $("[name='name']").val();
-    //     var age = $("[name='age']").val();
-    //     $.ajax({
-    //         url:"http://www.wei678.top/api/member/create",
-    //         data:{name:name,age:age},
-    //         dataType:'json',
-    //         method: 'GET',
-    //         success:function (res) {
-    //             if(res.code == 200){
-    //                 alert(res.msg);
-    //                 window.location.href='http://www.wei678.top/api/lists';
-    //             }else{
-    //                 alert(res.msg);
-    //             }
-    //         }
-    //     });
-    // });
+    $('.button').on('click',function () {
+        var name = $("[name='name']").val();
+        var age = $("[name='age']").val();
+        $.ajax({
+            url:"http://www.wei678.top/api/member/save",
+            data:{name:name,age:age},
+            dataType:'json',
+            method: 'GET',
+            success:function (res) {
+                if(res.code == 200){
+                    alert(res.msg);
+                    window.location.href='http://www.wei678.top/api/lists';
+                }else{
+                    alert(res.msg);
+                }
+            }
+        });
+    });
 </script>
 </body>
 </html>

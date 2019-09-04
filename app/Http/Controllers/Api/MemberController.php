@@ -65,4 +65,21 @@ class MemberController extends Controller
         $res = Member::where('id',$id)->first();
         return json_encode($res);
     }
+
+    public function save()
+    {
+        $name = request()->get('name');
+        $age = request()->get('age');
+        $member = Member::find(1);
+
+        $member->name = $name;
+        $member->age = $age;
+
+       $res = $member->save();
+        if ($res) {
+            return json_encode(['code'=>200,'msg'=>'修改成功']);
+        }else{
+            return json_encode(['code'=>202,'msg'=>'修改失败']);
+        }
+    }
 }
