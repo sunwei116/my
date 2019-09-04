@@ -70,7 +70,8 @@ class MemberController extends Controller
     {
         $name = request()->get('name');
         $age = request()->get('age');
-        $member = Member::find(1);
+        $age = request()->get('id');
+        $member = Member::find($age);
 
         $member->name = $name;
         $member->age = $age;

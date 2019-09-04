@@ -12,6 +12,7 @@
 <body>
 <input type="text" name="name">
 <input type="text" name="age">
+<input type="hidden" name="id">
 <input type="button" value="修改" class="button">
 
 <script>
@@ -29,6 +30,7 @@
         success:function (res){
             $("[name=name]").val(res.name);
             $("[name=age]").val(res.age);
+            $("[name=hidden]").val(res.id);
         }
     });
     function getQueryVariable(id)
@@ -44,9 +46,10 @@
     $('.button').on('click',function () {
         var name = $("[name='name']").val();
         var age = $("[name='age']").val();
+        var id = $("[name='hidden']").val();
         $.ajax({
             url:"http://www.wei678.top/api/member/save",
-            data:{name:name,age:age},
+            data:{name:name,age:age,id:id},
             dataType:'json',
             method: 'GET',
             success:function (res) {
