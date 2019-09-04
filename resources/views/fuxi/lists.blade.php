@@ -32,9 +32,9 @@
         success:function (res){
             console.log(res);
             var tr = $("<tr></tr>");
-            $.each(function () {
-                tr.parent("<td>res.name</td>");
-                tr.parent("<td>res.age</td>");
+            $.each(function (i,v) {
+                tr.parent("<td>v.name</td>");
+                tr.parent("<td>v.age</td>");
                 $('#lists').append(tr);
             });
         },
