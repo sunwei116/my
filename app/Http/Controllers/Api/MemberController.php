@@ -34,4 +34,15 @@ class MemberController extends Controller
             return json_encode(['code'=>202,'msg'=>'添加失败']);
         }
     }
+
+    public function bbb()
+    {
+        echo md6('eweww');
+        echo 11;
+    }
+
+    public function ppp()
+    {
+        
+    }
 }
