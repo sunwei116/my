@@ -30,7 +30,7 @@
         success:function (res){
             $("[name='name']").val(res.name);
             $("[name='age']").val(res.age);
-            $("[name='hidden']").val(res.id);
+            $("[name='id']").val(res.id);
         }
     });
     function getQueryVariable(id)
@@ -46,7 +46,7 @@
     $('.button').on('click',function () {
         var name = $("[name='name']").val();
         var age = $("[name='age']").val();
-        var id = $("[name='hidden']").val();
+        var id = $("[name='id']").val();
         console.log(age,id,name);
         $.ajax({
             url:"http://www.wei678.top/api/member/save",
