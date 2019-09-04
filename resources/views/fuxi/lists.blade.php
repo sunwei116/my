@@ -60,9 +60,11 @@
         });
     });
     //修改
-    $(document).on('edit','click',function () {
+    $(document).on('click','.edit',function () {
         var id =$(this).attr('mid');
-       alert(id);
+        $.ajax({
+            url:"http://www.wei678.top/api/member/delete",
+        });
     });
 </script>
 </html>

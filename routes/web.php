@@ -250,6 +250,11 @@ Route::any('api/lists', function (){
 Route::any('api/add', function (){
     return view('fuxi.add');
 });
+Route::any('api/edit',function (){
+    return view('fuxi.edit');
+});
 Route::any('api/member/create', 'Api\MemberController@create');
 Route::any('api/member/lists', 'Api\MemberController@lists');
 Route::any('api/member/delete', 'Api\MemberController@delete');
+Route::any('api/member/edit', 'Api\MemberController@edit');
+Route::any('api/member/find', 'Api\MemberController@find');

@@ -56,8 +56,11 @@ class MemberController extends Controller
         }
     }
 
-    public function ppp()
+    public function find()
     {
-        
+        $id = request()->input('id');
+        if (empty($id)){
+            return json_encode(['code'=>201,'msg'=>'id不能为空']);
+        }
     }
 }
