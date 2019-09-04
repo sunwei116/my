@@ -14,6 +14,7 @@
         <tr>
             <th>姓名</th>
             <th>年龄</th>
+            <th>操作</th>
         </tr>
        <tbody id="lists">
 
@@ -31,10 +32,11 @@
         dataType:'json',
         success:function (res){
             // console.log(res);
-            var tr = $("<tr></tr>");
             $.each(res,function (i,v) {
+                var tr = $("<tr></tr>");
                 tr.append("<td>"+v.name+"</td>");
                 tr.append("<td>"+v.age+"</td>");
+                tr.append("<td href='javascript:;'>删除</td>");
                 $('#lists').append(tr);
             });
         },
