@@ -33,8 +33,8 @@
             // console.log(res);
             var tr = $("<tr></tr>");
             $.each(function (i,v) {
-                tr.parent("<td>"+v.name+"</td>");
-                tr.parent("<td>"+v.age+"</td>");
+                tr.append("<td>"+v.name+"</td>");
+                tr.append("<td>"+v.age+"</td>");
                 $('#lists').append(tr);
             });
         },
