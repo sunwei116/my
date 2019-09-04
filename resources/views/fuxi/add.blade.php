@@ -29,7 +29,10 @@
            dataType:'json',
            method: 'GET',
            success:function (res) {
-               alert(res.msg);
+               if(res.code == 200){
+                   alert(res.msg);
+                   window.location.href='http://www.wei678.top/api/list';
+               }
            }
         });
     });

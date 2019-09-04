@@ -244,9 +244,11 @@ Route::get('a1','wechat\WechatController@a1');
 
 ///////////////////////////////////////////////
 /// 接口
-Route::any('api/lists', 'Api\MemberController@lists');
+Route::any('api/lists', function (){
+    return view('fuxi.lists');
+});
 Route::any('api/add', function (){
     return view('fuxi.add');
 });
 Route::any('api/member/create', 'Api\MemberController@create');
-Route::any('bbb', 'Api\MemberController@bbb');
+Route::any('api/member/lists', 'Api\MemberController@lists');
