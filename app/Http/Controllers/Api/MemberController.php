@@ -68,9 +68,9 @@ class MemberController extends Controller
 
     public function save()
     {
-        $name = request()->get('name');
-        $age = request()->get('age');
-        $age = request()->get('id');
+        $name = request()->input('name');
+        $age = request()->input('age');
+        $age = request()->input('id');
         $member = Member::find($age);
         $member->name = $name;
         $member->age = $age;
