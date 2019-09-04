@@ -32,7 +32,7 @@
         success:function (res){
             // console.log(res);
             var tr = $("<tr></tr>");
-            $.each(function (i,v) {
+            $.each(res,function (i,v) {
                 tr.append("<td>"+v.name+"</td>");
                 tr.append("<td>"+v.age+"</td>");
                 $('#lists').append(tr);
