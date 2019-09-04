@@ -23,7 +23,7 @@
 
     $.ajax({
         url:"http://www.wei678.top/api/member/find",
-        data:{id:getQueryVariable('id')},
+
         dataType:'json',
         method: 'GET',
         success:function (res){
