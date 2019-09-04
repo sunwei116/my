@@ -70,8 +70,8 @@ class MemberController extends Controller
     {
         $name = request()->input('name');
         $age = request()->input('age');
-        $age = request()->input('id');
-        $member = Member::find($age);
+        $id = request()->input('id');
+        $member = Member::find($id);
         $member->name = $name;
         $member->age = $age;
        $res = $member->save();
