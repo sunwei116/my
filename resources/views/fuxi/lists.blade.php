@@ -36,10 +36,14 @@
                 var tr = $("<tr></tr>");
                 tr.append("<td>"+v.name+"</td>");
                 tr.append("<td>"+v.age+"</td>");
-                tr.append("<td href='javascript:;'>删除</td>");
+                tr.append("<a href='javascript:;' class='del' mid='"+v.id+"'>删除</a>");
                 $('#lists').append(tr);
             });
         },
-    })
+    });
+    //删除
+    $(document).on('click','.del',function () {
+       alert(1);
+    });
 </script>
 </html>
