@@ -31,10 +31,12 @@
         dataType:'json',
         success:function (res){
             console.log(res);
-            // var tr = $("<tr></tr>");
-            // tr.parent("<td>res.name</td>");
-            // tr.parent("<td>res.age</td>");
-            // $('#lists').append(tr);
+            var tr = $("<tr></tr>");
+            $.each(function () {
+                tr.parent("<td>res.name</td>");
+                tr.parent("<td>res.age</td>");
+                $('#lists').append(tr);
+            });
         },
     })
 </script>
