@@ -49,9 +49,8 @@ class MemberController extends Controller
             return json_encode(['code'=>201,'msg'=>'id不能为空']);
         }
       $res = Member::where('id',$id)->delete();
-        dd($res);
         if ($res){
-            return json_encode(['code'=>202,'msg'=>'删除成功']);
+            return json_encode(['code'=>200,'msg'=>'删除成功']);
         }else{
             return json_encode(['code'=>202,'msg'=>'删除失败']);
         }

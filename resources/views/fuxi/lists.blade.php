@@ -36,7 +36,7 @@
                 var tr = $("<tr></tr>");
                 tr.append("<td>"+v.name+"</td>");
                 tr.append("<td>"+v.age+"</td>");
-                tr.append("<a href='javascript:;' class='del' mid='"+v.id+"'>删除</a>");
+                tr.append("<a href='javascript:;' class='del' mid='"+v.id+"'>删除</a>|<a href='javascript:;' class='edit' mid='"+v.id+"'>修改</a>");
                 $('#lists').append(tr);
             });
         },
@@ -46,8 +46,23 @@
         var id = $(this).attr('mid');
         $.ajax({
             url:"http://www.wei678.top/api/member/delete",
-
+            data:{id:id},
+            dataType:'json',
+            method:'GET',
+            success:function (res) {
+                if(res.code == 200){
+                    alert(res.msg);
+                    location.reload();
+                }else{
+                    alert(res.msg);
+                }
+            }
         });
+    });
+    //修改
+    $(document).on('edit','click',function () {
+        var id =$(this).attr('mid');
+       alert(id);
     });
 </script>
 </html>
