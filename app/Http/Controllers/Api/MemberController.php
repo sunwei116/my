@@ -72,10 +72,8 @@ class MemberController extends Controller
         $age = request()->get('age');
         $age = request()->get('id');
         $member = Member::find($age);
-
         $member->name = $name;
         $member->age = $age;
-
        $res = $member->save();
         if ($res) {
             return json_encode(['code'=>200,'msg'=>'修改成功']);

@@ -28,9 +28,9 @@
         dataType:'json',
         method: 'GET',
         success:function (res){
-            $("[name=name]").val(res.name);
-            $("[name=age]").val(res.age);
-            $("[name=hidden]").val(res.id);
+            $("[name='name']").val(res.name);
+            $("[name='age']").val(res.age);
+            $("[name='hidden']").val(res.id);
         }
     });
     function getQueryVariable(id)
