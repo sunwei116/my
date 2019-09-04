@@ -252,3 +252,4 @@ Route::any('api/add', function (){
 });
 Route::any('api/member/create', 'Api\MemberController@create');
 Route::any('api/member/lists', 'Api\MemberController@lists');
+Route::any('api/member/delete', 'Api\MemberController@delete');

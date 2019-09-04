@@ -43,7 +43,11 @@
     });
     //删除
     $(document).on('click','.del',function () {
-       alert(1);
+        var id = $(this).attr('mid');
+        $.ajax({
+            url:"http://www.wei678.top/api/member/delete",
+
+        });
     });
 </script>
 </html>

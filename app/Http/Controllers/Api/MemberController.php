@@ -42,10 +42,18 @@ class MemberController extends Controller
         }
     }
 
-    public function bbb()
+    public function delete()
     {
-        echo md6('eweww');
-        echo 11;
+        $id = request()->input('id');
+        if (empty($id)){
+            return json_encode(['code'=>201,'msg'=>'id不能为空']);
+        }
+      $res = Member::where('id',$id)->delete();
+        if ($res){
+            return json_encode(['code'=>202,'msg'=>'删除成功']);
+        }else{
+            return json_encode(['code'=>202,'msg'=>'删除失败']);
+        }
     }
 
     public function ppp()
