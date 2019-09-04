@@ -30,10 +30,11 @@
         url:"http://www.wei678.top/api/member/lists",
         dataType:'json',
         success:function (res){
-            var tr = $("<tr></tr>");
-            tr.parent("<td>res.name</td>");
-            tr.parent("<td>res.age</td>");
-            $('#lists').append(tr);
+            console.log(res);
+            // var tr = $("<tr></tr>");
+            // tr.parent("<td>res.name</td>");
+            // tr.parent("<td>res.age</td>");
+            // $('#lists').append(tr);
         },
     })
 </script>

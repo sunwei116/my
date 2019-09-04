@@ -19,7 +19,7 @@ class MemberController extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         // 要求传递的 name hobby以及 model
         $data = Member::get()->toArray();
-        return json_encode($data,JSON_UNESCAPED_UNICODE);
+        return json_encode($data);
 
     }
 
