@@ -27,9 +27,9 @@
                 });
                 for (var i=1;i<=res.data.last_page;i++){
                     if (i == res.data.current_page) {
-                        $('.pagination a').append("<li class='active'><a href='javascript:;'>i</a></li>");
+                        $('.pagination').append("<li class='active'><a href='javascript:;'>第"+i+"页</a></li>");
                     }else{
-                        $('.pagination a').append("<li><a href='javascript:;'>i</a></li>");
+                        $('.pagination').append("<li><a href='javascript:;'>第"+i+"页</a></li>");
                     }
                 }
             },
