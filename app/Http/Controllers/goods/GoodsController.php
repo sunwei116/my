@@ -29,4 +29,15 @@ class GoodsController extends Controller
             return json_encode(['code'=>302,'msg'=>'添加失败']);
         }
     }
+
+    public function lists()
+    {
+        $search = request()->input('search');
+        if (empty($search)){
+            $data = Goods::where(['goods','like',"%{$search}%"])->orWhere(['price','like',"%{$search}%"])->get();
+        }else{
+            $data = Goods::get();
+        }
+        return json_encode(['code'=>200,'msg'=>$data]);
+    }
 }

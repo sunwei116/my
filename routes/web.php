@@ -265,4 +265,8 @@ Route::resource('/api/member', 'Api\PostController');
 Route::any('/goods/add', function (){
     return view('goods.add');
 });
+Route::any('/goods/lists', function (){
+    return view('goods.lists');
+});
 Route::any('api/goods/add', 'goods\GoodsController@add');
+Route::any('api/goods/lists', 'goods\GoodsController@lists');
