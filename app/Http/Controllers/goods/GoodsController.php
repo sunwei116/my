@@ -33,10 +33,10 @@ class GoodsController extends Controller
     public function lists()
     {
         $search = request()->input('search');
-        if (empty($search)){
+        if (!empty($search)){
             $data = Goods::where(['goods','like',"%{$search}%"])->orWhere(['price','like',"%{$search}%"])->get();
         }else{
-            $data = Goods::get();
+            $data = Goods::all();
         }
         return json_encode(['code'=>200,'msg'=>$data]);
     }
