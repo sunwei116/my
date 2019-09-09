@@ -9,6 +9,10 @@
 
         </tbody>
     </table>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+        </ul>
+    </nav>
     <script>
         $.ajax({
             url:"http://www.wei678.top/api/goods/lists",
@@ -22,7 +26,11 @@
                     $('#tbody').append(tr);
                 });
                 for (var i=1;i<=res.data.last_page;i++){
-
+                    if (i == res.data.current_page) {
+                        $('.pagination a').append("<li class='active'><a href='javascript:;'>i</a></li>");
+                    }else{
+                        $('.pagination a').append("<li><a href='javascript:;'>i</a></li>");
+                    }
                 }
             },
         });
