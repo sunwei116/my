@@ -5,7 +5,7 @@ namespace App\Http\Controllers\goods;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\model\Goods;
+use App\Model\Goods;
 
 class GoodsController extends Controller
 {
