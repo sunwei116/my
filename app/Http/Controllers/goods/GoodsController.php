@@ -34,7 +34,7 @@ class GoodsController extends Controller
     {
         $search = request()->input('search');
         if (!empty($search)){
-            $data = Goods::where(['goods','like',"%{$search}%"])->orWhere(['price','like',"%{$search}%"])->get();
+            $data = Goods::where('goods','like',"%{$search}%")->orWhere('price','like',"%{$search}%")->get();
         }else{
             $data = Goods::all();
         }

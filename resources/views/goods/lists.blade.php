@@ -12,7 +12,7 @@
             dataType:'json',
             type:'POST',
             success:function (res) {
-
+                alert(res.msg);
             },
         });
     </script>
