@@ -36,7 +36,7 @@
                 $('.pagination').html(page);
             },
         });
-        $(document).on('click','.pagination a',function () {
+        $(document).on('click','.pagination li a',function () {
             var page = $(this).attr('page');
             $.ajax({
                 url:"http://www.wei678.top/api/goods/lists",
@@ -51,6 +51,7 @@
                         tr.append("<td>"+v.goods_price+"</td>");
                         $('#tbody').append(tr);
                     });
+                    var page = '';
                     for (var i=1;i<=res.data.last_page;i++){
                         if (i == res.data.current_page) {
                             page += "<li class='active'><a href='javascript:;' page='+i+'>第"+i+"页</a></li>";
