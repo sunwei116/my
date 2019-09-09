@@ -21,7 +21,7 @@ class GoodsController extends Controller
         $res = Goods::insert([
             'goods_name' => $goods_name,
             'goods_price' => $goods_price,
-            'goods_img'  => $goods_img,
+//            'goods_img'  => $goods_img,
         ]);
         if ($res){
             return json_encode(['code'=>200,'msg'=>'添加成功']);

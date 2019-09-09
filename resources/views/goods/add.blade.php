@@ -11,11 +11,7 @@
     <input type="button" value="添加" class="button">
 
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+
         $('.button').on('click',function () {
            var goods_name = $("[name='name']").val();
            var goods_price = $("[name='price']").val();
