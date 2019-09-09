@@ -6,7 +6,7 @@
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">商品价格</label>
-        <input type="text" class="form-control" name="peice">
+        <input type="text" class="form-control" name="price">
     </div>
     <input type="button" value="添加" class="button">
 
