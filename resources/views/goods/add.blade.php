@@ -20,7 +20,7 @@
            var goods_name = $("[name='name']").val();
            var goods_price = $("[name='price']").val();
            $.ajax({
-               url:'http://www.wei678.top/goods/add',
+               url:'http://www.wei678.top/api/goods/add',
                data:{goods_name:goods_name,goods_price:goods_price},
                type:'POST',
                dataType:'json',
@@ -29,24 +29,6 @@
                }
            });
         });
-        // $('.button').on('click',function () {
-        //     var name = $("[name='name']").val();
-        //     var age = $("[name='age']").val();
-        //     var url = "http://w3.wei678.top/api/member";
-        //     $.ajax({
-        //         url:url,
-        //         data:{name:name,age:age},
-        //         dataType:'json',
-        //         method: 'POST',
-        //         success:function (res) {
-        //             if(res.code == 200){
-        //                 alert(res.msg);
-        //                 window.location.href='http://w3.wei678.top/member/lists';
-        //             }else{
-        //                 alert(res.msg);
-        //             }
-        //         }
-        //     });
-        // });
+
     </script>
 @endsection
