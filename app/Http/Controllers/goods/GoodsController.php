@@ -38,6 +38,6 @@ class GoodsController extends Controller
         }else{
             $data = Goods::all();
         }
-        return json_encode(['code'=>200,'msg'=>$data]);
+        return json_encode(['code'=>200,'data'=>$data]);
     }
 }

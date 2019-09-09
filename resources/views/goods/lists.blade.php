@@ -5,6 +5,9 @@
             <td>商品名称</td>
             <td>商品价格</td>
         </tr>
+        <tbody id="tbody">
+
+        </tbody>
     </table>
     <script>
         $.ajax({
@@ -12,7 +15,12 @@
             dataType:'json',
             type:'POST',
             success:function (res) {
-                alert(res.msg);
+                $.each(res.data,function (i,v) {
+                    var tr = $("<tr></tr>");
+                    tr.append("<td>"+v.goods_name+"</td>");
+                    tr.append("<td>"+v.goods_price+"</td>");
+                    $('#tbody').append(tr);
+                });
             },
         });
     </script>
