@@ -28,9 +28,9 @@
                 var page = '';
                 for (var i=1;i<=res.data.last_page;i++){
                     if (i == res.data.current_page) {
-                        page += "<li class='active'><a href='javascript:;' page='+i+'>第"+i+"页</a></li>";
+                        page += "<li class='active'><a href='javascript:;' page='"+i+"'>第"+i+"页</a></li>";
                     }else{
-                       page += "<li class='active'><a href='javascript:;' page='+i+'>第"+i+"页</a></li>"
+                       page += "<li class='active'><a href='javascript:;' page='"+i+"'>第"+i+"页</a></li>"
                     }
                 }
                 $('.pagination').html(page);
