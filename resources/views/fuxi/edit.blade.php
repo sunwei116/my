@@ -47,7 +47,6 @@
         var name = $("[name='name']").val();
         var age = $("[name='age']").val();
         var id = $("[name='id']").val();
-        console.log(age,id,name);
         $.ajax({
             url:"http://www.wei678.top/api/member/save",
             data:{name:name,age:age,id:id},

@@ -256,7 +256,13 @@ Route::any('api/edit',function (){
 Route::any('api/member/create', 'Api\MemberController@create');
 Route::any('api/member/lists', 'Api\MemberController@lists');
 Route::any('api/member/delete', 'Api\MemberController@delete');
-Route::any('api/member/edit', 'Api\MemberController@edit');
 //修改
 Route::any('api/member/find', 'Api\MemberController@find');//根据id查询出数据
 Route::any('api/member/save', 'Api\MemberController@save');//执行修改
+
+Route::resource('/api/member', 'Api\PostController');
+//商品
+Route::any('/goods/add', function (){
+    return view('goods.add');
+});
+Route::any('goods/add', 'goods\GoodsController@add');
