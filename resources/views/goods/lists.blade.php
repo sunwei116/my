@@ -15,12 +15,15 @@
             dataType:'json',
             type:'POST',
             success:function (res) {
-                $.each(res.data,function (i,v) {
+                $.each(res.data.data,function (i,v) {
                     var tr = $("<tr></tr>");
                     tr.append("<td>"+v.goods_name+"</td>");
                     tr.append("<td>"+v.goods_price+"</td>");
                     $('#tbody').append(tr);
                 });
+                for (var i=1;i<=res.data.last_page;i++){
+
+                }
             },
         });
     </script>

@@ -34,9 +34,9 @@ class GoodsController extends Controller
     {
         $search = request()->input('search');
         if (!empty($search)){
-            $data = Goods::where('goods','like',"%{$search}%")->orWhere('price','like',"%{$search}%")->paginate(2);
+            $data = Goods::where('goods','like',"%{$search}%")->orWhere('price','like',"%{$search}%")->paginate(2)->toArray();
         }else{
-            $data = Goods::paginate(2);
+            $data = Goods::paginate(2)->toArray();
         }
         return json_encode(['code'=>200,'data'=>$data]);
     }
